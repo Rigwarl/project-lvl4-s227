@@ -1,5 +1,3 @@
-const webpack = require('webpack');
-
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: [
@@ -29,11 +27,4 @@ module.exports = {
       },
     ],
   },
-  // plugins: [
-  // new webpack.ProvidePlugin({
-  //   $: 'jquery',
-  //   jQuery: 'jquery',
-  //   'window.jQuery': 'jquery',
-  // }),
-  // ],
 };
