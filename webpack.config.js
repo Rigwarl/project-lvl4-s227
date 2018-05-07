@@ -3,9 +3,6 @@ module.exports = {
   entry: [
     `${__dirname}/app/index.jsx`,
   ],
-  externals: {
-    gon: 'gon',
-  },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
