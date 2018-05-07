@@ -11,16 +11,16 @@
   },
   "scripts": {
     "nodemon": "nodemon",
-    "test": "jest",
     "babel-node": "babel-node",
+    "eslint": "eslint",
+    "test": "jest",
     "flow": "flow",
     "flow-typed": "flow-typed",
-    "start": "node ./dist/bin/slack.js",
-    "eslint": "eslint",
     "webpack": "webpack",
-    "build-server": "babel server --out-dir dist --source-maps inline",
-    "build-app": "npm run webpack -- -p --env production",
+    "start": "node ./dist/bin/slack.js",
     "build": "npm run build-app && npm run build-server",
+    "build-app": "npm run webpack -- --mode production",
+    "build-server": "babel server --out-dir dist --source-maps inline",
     "postinstall": "npm run build"
   },
   "repository": {
