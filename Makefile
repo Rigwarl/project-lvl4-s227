@@ -12,10 +12,6 @@ build:
 
 test:
 	npm test
-	
-start:
-	make build
-	npm run start
 
 check-types:
 	npm run flow
