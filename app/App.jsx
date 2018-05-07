@@ -12,7 +12,7 @@ const App = ({ channels }: Props) => (
     <h1 className="h2">Channels</h1>
     <ul className="list-group">
       {channels.map(({ id, name }) =>
-        <li key={id} className="list-group-items">{name}</li>)}
+        <li key={id} className="list-group-item">{name}</li>)}
     </ul>
   </div>
 );
