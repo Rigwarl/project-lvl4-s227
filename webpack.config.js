@@ -12,7 +12,9 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   output: {
-    publicPath: '/assets/'
+    filename: 'application.js',
+    path: `${__dirname}/dist/assets`,
+    publicPath: '/assets/',
   },
   module: {
     rules: [
