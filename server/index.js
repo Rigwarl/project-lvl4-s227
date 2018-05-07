@@ -24,7 +24,7 @@ export default () => {
   app.keys = ['some secret hurr'];
   app.use(session(app));
   app.use(bodyParser());
-  app.use(serve(path.join(__dirname, '..', 'dist/assets')));
+  app.use(serve(path.join(__dirname, '..', 'dist', 'assets')));
   
   if (process.env.NODE_ENV !== 'production') {
     app.use(middleware({

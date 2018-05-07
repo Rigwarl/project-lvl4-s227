@@ -13,6 +13,7 @@ module.exports = {
   },
   output: {
     filename: 'application.js',
+    path: `${__dirname}/dist/assets`,
     publicPath: '/',
   },
   module: {
