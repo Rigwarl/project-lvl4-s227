@@ -9,11 +9,11 @@ import { render } from 'react-dom';
 
 import App from './App';
 
-const nameFromCookies = cookies.get('name');
-const name = nameFromCookies || faker.name.findName();
+const userNameFromCookies = cookies.get('userName');
+const userName = userNameFromCookies || faker.name.findName();
 
-if (!nameFromCookies) {
-  cookies.set('name', name);
+if (!userNameFromCookies) {
+  cookies.set('userName', userName);
 }
 
 const { channels } = window.gon;
@@ -22,5 +22,5 @@ const root = document.querySelector('#root');
 if (root === null) {
   throw new Error('no #root element');
 } else {
-  render(<App channels={channels} />, root);
+  render(<App channels={channels} userName={userName} />, root);
 }
