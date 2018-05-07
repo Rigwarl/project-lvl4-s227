@@ -25,7 +25,7 @@ export default () => {
   app.use(session(app));
   app.use(bodyParser());
   app.use(serve(path.join(__dirname, '..', 'dist', 'assets')));
-  
+
   if (process.env.NODE_ENV !== 'production') {
     app.use(middleware({
       config: webpackConfig,
