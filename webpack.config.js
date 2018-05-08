@@ -1,16 +1,20 @@
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
+
   entry: [
     `${__dirname}/app/index.jsx`,
   ],
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
+
   output: {
     filename: 'application.js',
     path: `${__dirname}/dist/assets`,
     publicPath: '/',
   },
+
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+
   module: {
     rules: [
       {

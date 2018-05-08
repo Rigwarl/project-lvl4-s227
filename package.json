@@ -19,7 +19,7 @@
     "webpack": "webpack",
     "start": "node ./dist/bin/slack.js",
     "build": "npm run build-app && npm run build-server",
-    "build-app": "npm run webpack -- --mode production",
+    "build-app": "npm run webpack",
     "build-server": "babel server --out-dir dist --source-maps inline",
     "postinstall": "npm run build"
   },
