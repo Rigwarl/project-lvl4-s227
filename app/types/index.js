@@ -5,3 +5,8 @@ export type Channel = {
   +name: string,
   +removable: boolean,
 };
+
+export type State = {
+  +channels: Channel[],
+  +userName: string,
+};

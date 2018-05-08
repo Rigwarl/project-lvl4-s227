@@ -2,24 +2,14 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import faker from 'faker';
-import cookies from 'js-cookie';
 import { channels } from 'gon';
-
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
-import { setChannels } from './actions';
-import App from './App';
-
-const userNameFromCookies = cookies.get('userName');
-const userName = userNameFromCookies || faker.name.findName();
-
-if (!userNameFromCookies) {
-  cookies.set('userName', userName);
-}
+import { setChannels, setUserName } from './actions';
+import App from './components/App';
 
 const root = document.querySelector('#root');
 
@@ -34,10 +24,11 @@ const devtoolMiddleware = ext && ext();
 
 const store = createStore(reducers, devtoolMiddleware);
 store.dispatch(setChannels({ channels }));
+store.dispatch(setUserName());
 
 render(
   <Provider store={store}>
-    <App channels={channels} userName={userName} />
+    <App />
   </Provider>,
   root,
 );
