@@ -2,14 +2,23 @@
   "env": {
     "node": {
       "presets": [
-        ["@babel/preset-env", { "targets": { "node": "current" }}],
-        ["@babel/preset-stage-0", { "decoratorsLegacy": true }]
+        ["@babel/preset-env", {
+          "targets": {
+            "browsers": "",
+            "node": "current"
+          }
+        }],
+        ["@babel/preset-stage-0", {
+          "decoratorsLegacy": true
+        }]
       ]
     },
     "browser": {
       "presets": [
         "@babel/preset-env",
-        ["@babel/preset-stage-0", { "decoratorsLegacy": true }],
+        ["@babel/preset-stage-0", {
+          "decoratorsLegacy": true
+        }],
         "@babel/preset-react",
         "@babel/preset-flow"
       ]
