@@ -19,8 +19,8 @@
     "webpack": "webpack",
     "start": "node ./dist/bin/slack.js",
     "build": "npm run build-app && npm run build-server",
-    "build-app": "npm run webpack",
-    "build-server": "babel server --out-dir dist --source-maps inline",
+    "build-app": "BABEL_ENV=browser npm run webpack",
+    "build-server": "BABEL_ENV=node babel server --out-dir dist --source-maps inline",
     "postinstall": "npm run build"
   },
   "repository": {

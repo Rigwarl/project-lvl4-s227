@@ -1,4 +1,4 @@
-install:	
+install:
 	make install-deps
 	make install-types
 
@@ -9,7 +9,7 @@ install-types:
 	npm run flow-typed install
 	
 start:
-	npm run nodemon -- --exec npm run babel-node -- server/bin/slack.js
+	BABEL_ENV=browser npm run nodemon -- --exec npm run babel-node -- server/bin/slack.js
 
 build:
 	rm -rf dist
