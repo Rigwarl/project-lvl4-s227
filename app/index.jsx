@@ -6,7 +6,7 @@ import faker from 'faker';
 import cookies from 'js-cookie';
 import React from 'react';
 import { render } from 'react-dom';
-
+import { channels } from 'gon';
 import App from './App';
 
 const userNameFromCookies = cookies.get('userName');
@@ -16,7 +16,6 @@ if (!userNameFromCookies) {
   cookies.set('userName', userName);
 }
 
-const { channels } = window.gon;
 const root = document.querySelector('#root');
 
 if (root === null) {

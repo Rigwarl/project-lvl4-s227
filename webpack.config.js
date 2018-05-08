@@ -15,6 +15,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
 
+  externals: {
+    gon: 'gon',
+  },
+
   module: {
     rules: [
       {
