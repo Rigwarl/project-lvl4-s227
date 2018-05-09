@@ -9,7 +9,7 @@ export type Props = {|
   currentChannelId: number,
 |};
 
-const renderChannel = ({ id, name }, currentChannelId) => {
+const renderChannelItem = ({ id, name }, currentChannelId) => {
   const className = cn({
     'list-group-item': true,
     active: id === currentChannelId,
@@ -20,7 +20,7 @@ const renderChannel = ({ id, name }, currentChannelId) => {
 
 const ChannelsList = ({ channels, currentChannelId }: Props) => (
   <ul className="list-group">
-    {channels.map(channel => renderChannel(channel, currentChannelId))}
+    {channels.map(channel => renderChannelItem(channel, currentChannelId))}
   </ul>
 );
 
