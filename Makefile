@@ -9,7 +9,7 @@ install-types:
 	npm run flow-typed install
 	
 start:
-	BABEL_ENV=browser npm run nodemon -- --exec npm run babel-node -- server/bin/slack.js
+	npm run nodemon -- --exec npm run babel-node -- server/bin/slack.js
 
 build:
 	rm -rf dist

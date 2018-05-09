@@ -1,3 +1,14 @@
+const babelOptions = {
+  presets: [
+    '@babel/preset-env',
+    ['@babel/preset-stage-0', {
+      decoratorsLegacy: true,
+    }],
+    '@babel/preset-react',
+    '@babel/preset-flow',
+  ],
+};
+
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
 
@@ -24,7 +35,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: babelOptions,
+        },
       },
       {
         test: /\.css$/,
