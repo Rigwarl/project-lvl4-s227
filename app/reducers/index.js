@@ -12,6 +12,10 @@ const channels = handleActions({
   [actions.initApp]: (state, { payload }) => _.keyBy(payload.channels, 'id'),
 }, {});
 
+const messages = handleActions({
+  [actions.initApp]: (state, { payload }) => _.keyBy(payload.messages, 'id'),
+}, []);
+
 const currentChannelId = handleActions({
   [actions.initApp]: (state, { payload }) => payload.currentChannelId,
 }, 0);
@@ -19,6 +23,7 @@ const currentChannelId = handleActions({
 export default combineReducers({
   user,
   channels,
+  messages,
   currentChannelId,
   form: formReducer,
 });

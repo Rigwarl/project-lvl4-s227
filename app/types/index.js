@@ -10,10 +10,17 @@ export type Channel = {|
   +removable: boolean,
 |};
 
+export type Message = {|
+  +text: string,
+|};
+
 export type State = {|
   +user: User,
   +channels: {|
-    +[string]: Channel
+    +[string]: Channel,
+  |},
+  +messages: {|
+    +[string]: Message,
   |},
   +currentChannelId: number,
 |};
