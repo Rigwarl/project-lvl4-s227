@@ -19,7 +19,7 @@ const messages = handleActions({
 const messageAddingStatus = handleActions({
   [actions.addMessageRequest]: () => 'requested',
   [actions.addMessageFailure]: () => 'failed',
-  [actions.addMessageSuccessed]: () => 'successed',
+  [actions.addMessageSuccess]: () => 'successed',
 }, 'none');
 
 const currentChannelId = handleActions({
