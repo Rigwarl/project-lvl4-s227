@@ -6,13 +6,13 @@ import { createAction } from 'redux-actions';
 
 export const setChannels = createAction('CHANNELS_SET');
 
-export const setUserName = createAction('USER_NAME_SET', () => {
-  const userNameFromCookies = cookies.get('userName');
-  const userName = userNameFromCookies || faker.name.findName();
+export const setUserName = createAction('USER_SET_NAME', () => {
+  const nameFromCookies = cookies.get('userName');
+  const name = nameFromCookies || faker.name.findName();
 
-  if (!userNameFromCookies) {
-    cookies.set('userName', userName);
+  if (!nameFromCookies) {
+    cookies.set('userName', name);
   }
 
-  return { userName };
+  return { name };
 });

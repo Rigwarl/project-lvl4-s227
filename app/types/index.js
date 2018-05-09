@@ -1,5 +1,9 @@
 // @flow
 
+export type User = {
+  name: string,
+}
+
 export type Channel = {
   +id: number,
   +name: string,
@@ -7,6 +11,8 @@ export type Channel = {
 };
 
 export type State = {
-  +channels: Channel[],
-  +userName: string,
+  +user: User,
+  +channels: {|
+    +[string]: Channel
+  |},
 };
