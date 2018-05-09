@@ -2,8 +2,13 @@
 
 import { connect } from 'react-redux';
 import { addMessage } from '../actions';
-import Component from '../components/NewMessageForm';
+import Component, { type Props } from '../components/NewMessageForm';
+import type { State } from '../types';
 
-const Container = connect(null, { onSubmit: addMessage })(Component);
+const mapStateToProps = (state: State): Props => ({
+  disabled: state.messageAddingStatus === 'requested',
+});
+const dispatchProps = { onSubmit: addMessage };
+const Container = connect(mapStateToProps, dispatchProps)(Component);
 
 export default Container;

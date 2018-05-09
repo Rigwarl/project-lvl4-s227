@@ -7,8 +7,9 @@ import faker from 'faker';
 import cookies from 'js-cookie';
 import React from 'react';
 import { render } from 'react-dom';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { initApp } from './actions';
 import App from './components/App';
@@ -34,7 +35,13 @@ const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
 const devtoolMiddleware = ext && ext();
 /* eslint-enable */
 
-const store = createStore(reducers, devtoolMiddleware);
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(thunk),
+    devtoolMiddleware,
+  ),
+);
 store.dispatch(initApp(data));
 
 render(

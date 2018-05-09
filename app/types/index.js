@@ -22,5 +22,6 @@ export type State = {|
   +messages: {|
     +[string]: Message,
   |},
+  +messageAddingStatus: 'none' | 'requested' | 'failed' | 'successed',
   +currentChannelId: number,
 |};
