@@ -8,7 +8,7 @@ import type { State } from '../types';
 
 const mapStateToProps = (state: State): Props => ({
   channels: channelsSelector(state),
-  userName: state.user.name,
+  currentChannelId: state.currentChannelId,
 });
 const Container = connect(mapStateToProps)(Component);
 

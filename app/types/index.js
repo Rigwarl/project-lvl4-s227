@@ -15,5 +15,5 @@ export type State = {|
   +channels: {|
     +[string]: Channel
   |},
-  +activeChannelId: number,
+  +currentChannelId: number,
 |};

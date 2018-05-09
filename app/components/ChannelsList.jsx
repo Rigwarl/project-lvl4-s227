@@ -1,18 +1,26 @@
 // @flow
 
 import React from 'react';
+import cn from 'classnames';
 import type { Channel } from '../types';
 
-export type Props = {
+export type Props = {|
   channels: Channel[],
-  userName: string,
+  currentChannelId: number,
+|};
+
+const renderChannel = ({ id, name }, currentChannelId) => {
+  const className = cn({
+    'list-group-item': true,
+    active: id === currentChannelId,
+  });
+
+  return <li key={id} className={className}>{name}</li>;
 };
 
-const ChannelsList = ({ channels, userName }: Props) => (
+const ChannelsList = ({ channels, currentChannelId }: Props) => (
   <ul className="list-group">
-    <li className="list-group-item"><b>Hello, {userName}!</b></li>
-    {channels.map(({ id, name }) =>
-      <li key={id} className="list-group-item">{name}</li>)}
+    {channels.map(channel => renderChannel(channel, currentChannelId))}
   </ul>
 );
 
