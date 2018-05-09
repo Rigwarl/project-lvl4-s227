@@ -4,9 +4,7 @@ import faker from 'faker';
 import cookies from 'js-cookie';
 import { createAction } from 'redux-actions';
 
-export const setChannels = createAction('CHANNELS_SET');
-
-export const setUserName = createAction('USER_SET_NAME', () => {
+export const initApp = createAction('APP_INIT', (data) => {
   const nameFromCookies = cookies.get('userName');
   const name = nameFromCookies || faker.name.findName();
 
@@ -14,5 +12,7 @@ export const setUserName = createAction('USER_SET_NAME', () => {
     cookies.set('userName', name);
   }
 
-  return { name };
+  const user = { name };
+
+  return { ...data, user };
 });

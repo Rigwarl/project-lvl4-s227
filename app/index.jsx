@@ -2,13 +2,13 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { channels } from 'gon';
+import gon from 'gon';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
-import { setChannels, setUserName } from './actions';
+import { initApp } from './actions';
 import App from './components/App';
 
 const root = document.querySelector('#root');
@@ -23,8 +23,7 @@ const devtoolMiddleware = ext && ext();
 /* eslint-enable */
 
 const store = createStore(reducers, devtoolMiddleware);
-store.dispatch(setChannels({ channels }));
-store.dispatch(setUserName());
+store.dispatch(initApp(gon));
 
 render(
   <Provider store={store}>

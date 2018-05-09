@@ -4,11 +4,19 @@ import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
 const user = handleActions({
-  [actions.setUserName]: (state, { payload: { name } }) => ({ ...state, name }),
-}, '');
+  [actions.initApp]: (state, { payload: { user: { name } } }) => ({ ...state, name }),
+}, {});
 
 const channels = handleActions({
-  [actions.setChannels]: (state, { payload }) => _.keyBy(payload.channels, 'id'),
-}, []);
+  [actions.initApp]: (state, { payload }) => _.keyBy(payload.channels, 'id'),
+}, {});
 
-export default combineReducers({ user, channels });
+const currentChannelId = handleActions({
+  [actions.initApp]: (state, { payload }) => payload.currentChannelId,
+}, 0);
+
+export default combineReducers({
+  user,
+  channels,
+  currentChannelId,
+});
