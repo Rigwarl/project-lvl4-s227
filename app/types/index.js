@@ -12,6 +12,9 @@ export type Channel = {|
 
 export type Message = {|
   +text: string,
+  +id: number,
+  +channelId: number,
+  +userName: string,
 |};
 
 export type State = {|
