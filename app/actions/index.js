@@ -1,7 +1,7 @@
 // @flow
-
 import axios from 'axios';
 import { createAction } from 'redux-actions';
+import { reset } from 'redux-form';
 import type { Dispatch } from 'redux';
 import type { Message } from '../types';
 
@@ -16,6 +16,7 @@ export const addMessage = (message: Message) => async (dispatch: Dispatch) => {
   try {
     const response = await axios.post('/', { message });
     dispatch(addMessageSuccess({ task: response.data }));
+    dispatch(reset('newMessage'));
   } catch (e) {
     dispatch(addMessageFailure());
   }
