@@ -14,7 +14,7 @@ import reducers from './reducers';
 import { initApp } from './actions';
 import App from './components/App';
 
-const root = document.querySelector('#root');
+const root = document.getElementById('root');
 
 if (root === null) {
   throw new Error('no #root element');
