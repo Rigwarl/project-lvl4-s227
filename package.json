@@ -72,6 +72,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0",
     "style-loader": "^0.21.0",
     "timeout-then": "^1.1.0",
     "webpack": "^4.8.0",
