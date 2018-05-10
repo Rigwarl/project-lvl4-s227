@@ -1,11 +1,12 @@
 // @flow
 
-import axios from 'axios';
 import { createAction } from 'redux-actions';
 import { reset } from 'redux-form';
 import { request } from '../server';
 
 export const initApp = createAction('APP_INIT');
+
+export const addMessageEvent = createAction('MESSAGE_ADD_EVENT');
 
 export const addMessageRequest = createAction('MESSAGE_ADD_REQUEST');
 export const addMessageSuccess = createAction('MESSAGE_ADD_SUCCESS');

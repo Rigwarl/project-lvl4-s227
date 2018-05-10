@@ -33,10 +33,10 @@ export const request = async (action: Action, attributes: any) => {
 
 export const connect = (dispatch, actions) => {
   const socketActions = {
-    newMessage: actions.addMessage,
+    newMessage: actions.addMessageEvent,
   };
   const socket = io();
 
-  socketActions.entries(([type, action]) =>
-    socket.on(type, data => dispatch(action(data))));
+  Object.entries(socketActions).forEach(([type, action]) => socket.on(type, ({ data }) =>
+    dispatch(action(data.attributes || { id: data.id }))));
 };

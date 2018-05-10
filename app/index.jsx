@@ -11,8 +11,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import { initApp } from './actions';
+import * as actions from './actions';
 import App from './components/App';
+import { connect } from './server';
 
 const root = document.getElementById('root');
 
@@ -42,7 +43,8 @@ const store = createStore(
     devtoolMiddleware,
   ),
 );
-store.dispatch(initApp(data));
+store.dispatch(actions.initApp(data));
+connect(store.dispatch, actions);
 
 render(
   <Provider store={store}>
