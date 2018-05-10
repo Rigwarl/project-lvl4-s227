@@ -7,9 +7,10 @@ import faker from 'faker';
 import cookies from 'js-cookie';
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers';
 import * as actions from './actions';
 import App from './components/App';
@@ -31,17 +32,9 @@ if (!nameFromCookies) {
 const user = { name };
 const data = { ...gon, user };
 
-/* eslint-disable no-underscore-dangle */
-const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
-const devtoolMiddleware = ext && ext();
-/* eslint-enable */
-
 const store = createStore(
   reducers,
-  compose(
-    applyMiddleware(thunk),
-    devtoolMiddleware,
-  ),
+  composeWithDevTools(applyMiddleware(thunk)),
 );
 store.dispatch(actions.initApp(data));
 connect(store.dispatch, actions);
