@@ -27,6 +27,7 @@ export const addMessage = ({ text }: { text: string }) => async (dispatch, getSt
     dispatch(addMessageSuccess());
     dispatch(reset('newMessage'));
   } catch (e) {
+    console.warn(e);
     dispatch(addMessageFailure());
   }
 };
