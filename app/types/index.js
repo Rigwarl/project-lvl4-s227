@@ -10,12 +10,15 @@ export type Channel = {|
   +removable: boolean,
 |};
 
-export type Message = {|
+export type NewMessage = {|
   +text: string,
-  +id: number,
   +channelId: number,
   +userName: string,
 |};
+
+export type Message = {|
+  +id: number,
+|} & NewMessage;
 
 export type State = {|
   +user: User,

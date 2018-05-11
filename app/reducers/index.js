@@ -14,7 +14,7 @@ const channels = handleActions({
 
 const messages = handleActions({
   [actions.initApp]: (state, { payload }) => _.keyBy(payload.messages, 'id'),
-  [actions.addMessageEvent]: (state, { payload }) => ({ ...state, [payload.id]: payload }),
+  [actions.addMessageEvent]: (state, { payload: { id, message } }) => ({ ...state, [id]: message }),
 }, {});
 
 const messageAddingStatus = handleActions({

@@ -2,41 +2,30 @@
 
 import axios from 'axios';
 import io from 'socket.io-client';
+import type { Message, NewMessage } from './types';
 
-type Method = 'get' | 'post' |'update' | 'delete';
-type Action = 'addMessage';
-type DataTypes = 'messages';
-type ActionData = [Method, DataTypes, string];
+const prefix = 'api/v1';
 
-const getActionData = (action: Action, params: Object): ActionData => ({
-  addMessage: ({ channelId }) => ['post', 'messages', `channels/${channelId}/messages`],
-})[action](params);
+const addMessage = async (message: NewMessage): Promise<{ id: number, message: Message }> => {
+  const data = {
+    type: 'messages',
+    attributes: message,
+  };
+  const { data: { id, attributes } } = await axios.post(`/${prefix}/channels/${message.channelId}/messages`, data);
 
-const getReguestData = (method, type, attributes) => {
-  switch (method) {
-    case 'delete':
-      return null;
-    case 'post':
-      return { type, attributes };
-    default:
-      return { id: attributes.id, type, attributes };
-  }
+  return { id, message: attributes };
 };
 
-export const request = async (action: Action, attributes: any) => {
-  const [method, type, url] = getActionData(action, attributes);
-  const data = getReguestData(method, type, attributes);
-  const { data: { attributes: result } } = await axios[method](`/api/v1/${url}`, { data });
-
-  return result;
+export const request = {
+  addMessage,
 };
 
 export const connect = (dispatch, actions) => {
   const socketActions = {
-    newMessage: actions.addMessageEvent,
+    newMessage: ({ id, attributes }) => actions.addMessageEvent({ id, message: attributes }),
   };
   const socket = io();
 
-  Object.entries(socketActions).forEach(([type, action]) => socket.on(type, ({ data }) =>
-    dispatch(action(data.attributes || { id: data.id }))));
+  Object.entries(socketActions).forEach(([type, action]) =>
+    socket.on(type, ({ data }) => dispatch(action(data))));
 };

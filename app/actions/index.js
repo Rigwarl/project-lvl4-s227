@@ -12,7 +12,7 @@ export const addMessageRequest = createAction('MESSAGE_ADD_REQUEST');
 export const addMessageSuccess = createAction('MESSAGE_ADD_SUCCESS');
 export const addMessageFailure = createAction('MESSAGE_ADD_FAILURE');
 
-export const addMessage = ({ text }) => async (dispatch, getState) => {
+export const addMessage = ({ text }: { text: string }) => async (dispatch, getState) => {
   dispatch(addMessageRequest());
   try {
     const { user, currentChannelId } = getState();
@@ -22,7 +22,7 @@ export const addMessage = ({ text }) => async (dispatch, getState) => {
       channelId: currentChannelId,
     };
 
-    await request('addMessage', message);
+    await request.addMessage(message);
 
     dispatch(addMessageSuccess());
     dispatch(reset('newMessage'));
