@@ -6,14 +6,14 @@ import type { Message, NewMessage } from './types';
 
 const prefix = 'api/v1';
 
-const addMessage = async (message: NewMessage): Promise<{ id: number, message: Message }> => {
+const addMessage = async (message: NewMessage): Promise<Message> => {
   const data = {
     type: 'messages',
     attributes: message,
   };
-  const { data: { id, attributes } } = await axios.post(`/${prefix}/channels/${message.channelId}/messages`, data);
+  const { data: { attributes } } = await axios.post(`/${prefix}/channels/${message.channelId}/messages`, { data });
 
-  return { id, message: attributes };
+  return attributes;
 };
 
 export const request = {
@@ -22,7 +22,7 @@ export const request = {
 
 export const connect = (dispatch, actions) => {
   const socketActions = {
-    newMessage: ({ id, attributes }) => actions.addMessageEvent({ id, message: attributes }),
+    newMessage: ({ attributes }) => actions.addMessageEvent(attributes),
   };
   const socket = io();
 
