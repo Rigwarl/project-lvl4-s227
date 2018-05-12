@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import ChannelsList from '../containers/ChannelsList';
-import MessagesList from '../containers/MessagesList';
-import NewMessageForm from '../containers/NewMessageForm';
+import ChannelsList from './ChannelsList';
+import MessagesList from './MessagesList';
+import NewMessageForm from './NewMessageForm';
 
 const App = () => (
   <div className="container pt-3">
