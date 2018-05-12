@@ -17,12 +17,6 @@ const messages = handleActions({
   [actions.addMessageEvent]: (state, { payload }) => ({ ...state, [payload.id]: payload }),
 }, {});
 
-const messageAddingStatus = handleActions({
-  [actions.addMessageRequest]: () => 'requested',
-  [actions.addMessageFailure]: () => 'failed',
-  [actions.addMessageSuccess]: () => 'successed',
-}, 'none');
-
 const currentChannelId = handleActions({
   [actions.initApp]: (state, { payload }) => payload.currentChannelId,
 }, 0);
@@ -32,6 +26,5 @@ export default combineReducers({
   channels,
   messages,
   currentChannelId,
-  messageAddingStatus,
   form: formReducer,
 });
