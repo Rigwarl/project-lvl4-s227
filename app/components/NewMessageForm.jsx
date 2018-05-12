@@ -15,7 +15,6 @@ const mapStateToProps = (state: State): Props => ({
   userName: state.user.name,
   channelId: state.currentChannelId,
 });
-const dispatchProps = { addMessage };
 
 class NewMessageForm extends React.Component<Props> {
   onSubmit = async ({ text }) => {
@@ -51,4 +50,4 @@ class NewMessageForm extends React.Component<Props> {
 }
 
 const ReduxForm = reduxForm({ form: 'newMessage' })(NewMessageForm);
-export default connect(mapStateToProps, dispatchProps)(ReduxForm);
+export default connect(mapStateToProps, { addMessage })(ReduxForm);
