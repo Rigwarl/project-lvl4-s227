@@ -1,13 +1,20 @@
 // @flow
 
 import React from 'react';
+import { connect } from 'react-redux';
 import cn from 'classnames';
-import type { Channel } from '../types';
+import { channelsSelector } from '../selectors';
+import type { State, Channel } from '../types';
 
 export type Props = {|
   channels: Channel[],
   currentChannelId: number,
 |};
+
+const mapStateToProps = (state: State): Props => ({
+  channels: channelsSelector(state),
+  currentChannelId: state.currentChannelId,
+});
 
 const renderChannelItem = ({ id, name }, currentChannelId) => {
   const className = cn({
@@ -24,4 +31,4 @@ const ChannelsList = ({ channels, currentChannelId }: Props) => (
   </ul>
 );
 
-export default ChannelsList;
+export default connect(mapStateToProps)(ChannelsList);
