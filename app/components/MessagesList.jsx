@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { messagesSelector } from '../selectors';
 import type { State, Message } from '../types';
 
-export type Props = {
+export type Props = {|
   messages: Message[],
-}
+|};
 
 const mapStateToProps = (state: State): Props => ({
   messages: messagesSelector(state),
