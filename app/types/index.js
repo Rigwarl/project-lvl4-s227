@@ -10,6 +10,10 @@ export type Channel = {|
   +removable: boolean,
 |};
 
+export type ChannelsMap = {
+  +[string]: Channel,
+};
+
 export type NewMessage = {|
   +text: string,
   +channelId: number,
@@ -18,15 +22,25 @@ export type NewMessage = {|
 
 export type Message = {|
   +id: number,
-|} & NewMessage;
+  +text: string,
+  +channelId: number,
+  +userName: string,
+|};
+
+export type MessagesMap = {
+  +[string]: Message,
+};
+
+export type InitData = {|
+  +user: User,
+  +channels: Channel[],
+  +messages: Message[],
+  +currentChannelId: number,
+|};
 
 export type State = {|
   +user: User,
-  +channels: {|
-    +[string]: Channel,
-  |},
-  +messages: {|
-    +[string]: Message,
-  |},
+  +channels: ChannelsMap,
+  +messages: MessagesMap,
   +currentChannelId: number,
 |};
