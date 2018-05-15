@@ -1,16 +1,22 @@
 // @flow
 
-// eslint-disable-next-line
-import type { Channel, Message } from '.';
-
 declare module 'gon' {
-  declare export default {
-    +channels: {|
-      +[string]: Channel,
-    |},
-    +messages: {|
-      +[string]: Message,
-    |},
+  declare type Channel = {|
+    +id: number,
+    +name: string,
+    +removable: boolean,
+  |};
+
+  declare type Message = {|
+    +id: number,
+    +text: string,
+    +channelId: number,
+    +userName: string,
+  |};
+
+  declare export default {|
+    +channels: Channel[],
+    +messages: Message[],
     +currentChannelId: number,
-  }
+  |}
 }
