@@ -20,12 +20,12 @@ export const request = {
   addMessage,
 };
 
-export const connect = (dispatch, actions) => {
+export const connect = (dispatch: Function, actions: any) => {
   const socketActions = {
     newMessage: ({ attributes }) => actions.addMessageEvent(attributes),
   };
   const socket = io();
 
-  Object.entries(socketActions).forEach(([type, action]) =>
-    socket.on(type, ({ data }) => dispatch(action(data))));
+  Object.keys(socketActions).forEach(type =>
+    socket.on(type, ({ data }) => dispatch(socketActions[type](data))));
 };
