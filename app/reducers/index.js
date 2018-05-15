@@ -6,7 +6,7 @@ import * as actions from '../actions';
 
 const user = handleActions({
   [actions.initApp]: (state, { payload: { user: { name } } }) => ({ ...state, name }),
-}, {});
+}, { name: '' });
 
 const channels = handleActions({
   [actions.initApp]: (state, { payload }) => _.keyBy(payload.channels, 'id'),
