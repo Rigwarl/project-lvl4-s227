@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { handleActions, type ActionType } from 'redux-actions';
 import * as actions from '../actions';
-import type { ChannelsMap, MessagesMap, User } from '../types';
+import type { ChannelsMap, MessagesMap, User, ChannelsListState } from '../types';
 
 const user = handleActions({
   [actions.initApp.toString()](
@@ -17,18 +17,6 @@ const user = handleActions({
     return { ...state, name };
   },
 }, { name: '' });
-
-const channels = handleActions({
-  [actions.initApp.toString()](
-    state: ChannelsMap,
-    action: ActionType<typeof actions.initApp>,
-  ): ChannelsMap {
-    const { payload } = action;
-    const channelsById = _.keyBy(payload.channels, 'id');
-
-    return { ...channelsById };
-  },
-}, {});
 
 const messages = handleActions({
   [actions.initApp.toString()](
@@ -51,11 +39,29 @@ const messages = handleActions({
   },
 }, {});
 
+const channels = handleActions({
+  [actions.initApp.toString()](
+    state: ChannelsMap,
+    action: ActionType<typeof actions.initApp>,
+  ): ChannelsMap {
+    const { payload } = action;
+    const channelsById = _.keyBy(payload.channels, 'id');
+
+    return { ...channelsById };
+  },
+}, {});
+
+const channelsListState = handleActions({
+  [actions.channelsListAdd.toString()]: (): ChannelsListState => 'adding',
+  [actions.channelsListEdit.toString()]: (): ChannelsListState => 'editing',
+  [actions.channelsListDefault.toString()]: (): ChannelsListState => 'default',
+}, '');
+
 const currentChannelId = handleActions({
   [actions.initApp.toString()](
     state: number,
     action: ActionType<typeof actions.initApp>,
-  ) {
+  ): number {
     const { payload } = action;
 
     return payload.currentChannelId;
@@ -64,7 +70,7 @@ const currentChannelId = handleActions({
   [actions.changeCurrentChannel.toString()](
     state: number,
     action: ActionType<typeof actions.changeCurrentChannel>,
-  ) {
+  ): number {
     const { payload } = action;
 
     return payload;
@@ -73,8 +79,9 @@ const currentChannelId = handleActions({
 
 export default combineReducers({
   user,
-  channels,
   messages,
+  channels,
+  channelsListState,
   currentChannelId,
   form: formReducer,
 });

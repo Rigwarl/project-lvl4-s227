@@ -14,6 +14,8 @@ export type ChannelsMap = {
   +[string]: Channel,
 };
 
+export type ChannelsListState = 'default' | 'adding' | 'editing';
+
 export type NewMessage = {|
   +text: string,
   +channelId: number,
@@ -40,7 +42,8 @@ export type InitData = {|
 
 export type State = {|
   +user: User,
-  +channels: ChannelsMap,
   +messages: MessagesMap,
+  +channels: ChannelsMap,
+  +channelsListState: ChannelsListState,
   +currentChannelId: number,
 |};
