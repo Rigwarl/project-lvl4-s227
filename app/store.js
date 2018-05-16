@@ -27,4 +27,6 @@ export default () => {
 
   store.dispatch(actions.initApp(data));
   connect(store.dispatch, actions);
+
+  return store;
 };
