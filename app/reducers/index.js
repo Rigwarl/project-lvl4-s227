@@ -52,10 +52,15 @@ const channels = handleActions({
 }, {});
 
 const channelsListState = handleActions({
-  [actions.channelsListAdd.toString()]: (): ChannelsListState => 'adding',
-  [actions.channelsListEdit.toString()]: (): ChannelsListState => 'editing',
-  [actions.channelsListDefault.toString()]: (): ChannelsListState => 'default',
-}, '');
+  [actions.changeChannelsList.toString()](
+    state: ChannelsListState,
+    action: ActionType<typeof actions.changeChannelsList>,
+  ): ChannelsListState {
+    const { payload } = action;
+
+    return payload;
+  },
+}, 'default');
 
 const currentChannelId = handleActions({
   [actions.initApp.toString()](
