@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { messagesSelector } from '../selectors';
 import type { State, Message } from '../types';
 
@@ -14,12 +15,12 @@ const mapStateToProps = (state: State): Props => ({
 });
 
 const renderMessageListItem = ({ id, text, userName }) => (
-  <div key={id} className="card mb-4">
-    <div className="card-body">
-      <b className="card-title">{userName}</b>
-      <p className="card-text">{text}</p>
-    </div>
-  </div>
+  <Card key={id} className="mb-4">
+    <CardBody>
+      <CardTitle>{userName}</CardTitle>
+      <CardText>{text}</CardText>
+    </CardBody>
+  </Card>
 );
 
 const MessagesList = ({ messages }: Props) => (

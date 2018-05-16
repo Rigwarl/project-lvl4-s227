@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import cn from 'classnames';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import { channelsSelector } from '../selectors';
 import { changeCurrentChannel } from '../actions';
 import type { State, Channel } from '../types';
@@ -23,30 +23,20 @@ const mapStateToProps = (state: State): Props => ({
 
 const dispatchToProps: DispatchProps = { onChannelClick: changeCurrentChannel };
 
-const renderChannelItem = ({ id, name }, currentChannelId, onChannelClick) => {
-  const active = id === currentChannelId;
-  const className = cn({
-    'list-group-item': true,
-    active,
-  });
-
-  return (
-    <li
-      key={id}
-      role="menuitemradio"
-      aria-checked={active}
-      className={className}
-      onClick={() => onChannelClick(id)}
-    >
-      {name}
-    </li>
-  );
-};
+const renderChannelItem = ({ id, name }, currentChannelId, onChannelClick) => (
+  <ListGroupItem
+    key={id}
+    active={id === currentChannelId}
+    onClick={() => onChannelClick(id)}
+  >
+    {name}
+  </ListGroupItem>
+);
 
 const ChannelsList = ({ channels, currentChannelId, onChannelClick }: Props & DispatchProps) => (
-  <ul className="list-group" role="menu">
+  <ListGroup>
     {channels.map(channel => renderChannelItem(channel, currentChannelId, onChannelClick))}
-  </ul>
+  </ListGroup>
 );
 
 export default connect(mapStateToProps, dispatchToProps)(ChannelsList);

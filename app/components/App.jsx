@@ -1,22 +1,23 @@
 // @flow
 
 import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import ChannelsList from './ChannelsList';
 import MessagesList from './MessagesList';
 import NewMessageForm from './NewMessageForm';
 
 const App = () => (
-  <div className="container pt-3">
-    <div className="row">
-      <div className="col-3">
+  <Container className="pt-3">
+    <Row>
+      <Col sm="3" className="mb-4">
         <ChannelsList />
-      </div>
-      <div className="col-9">
+      </Col>
+      <Col sm="9" className="mb-4">
         <MessagesList />
         <NewMessageForm />
-      </div>
-    </div>
-  </div>
+      </Col>
+    </Row>
+  </Container>
 );
 
 export default App;

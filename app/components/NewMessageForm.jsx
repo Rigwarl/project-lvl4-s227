@@ -1,8 +1,9 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, type FormProps } from 'redux-form';
+import { Form, FormGroup, Button, Input } from 'reactstrap';
 import { addMessage } from '../actions';
 import type { State } from '../types';
 
@@ -16,6 +17,15 @@ const mapStateToProps = (state: State): Props => ({
   channelId: state.currentChannelId,
 });
 
+const renderTextarea = ({ input }): React.Element<any> => (
+  <Input
+    {...input}
+    type="textarea"
+    rows="3"
+    placeholder="Input message"
+  />
+);
+
 class NewMessageForm extends React.Component<Props> {
   onSubmit = async ({ text }) => {
     const { userName, channelId } = this.props;
@@ -27,24 +37,21 @@ class NewMessageForm extends React.Component<Props> {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <div className="form-group">
+      <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+        <FormGroup>
           <Field
-            disabled={this.props.submitting}
             name="text"
-            component="textarea"
-            rows="3"
-            placeholder="Input message"
-            className="form-control"
+            component={renderTextarea}
+            disabled={this.props.submitting}
           />
-        </div>
-        <button
+        </FormGroup>
+        <Button
           disabled={this.props.submitting}
           type="submit"
-          className="btn btn-primary"
+          color="primary"
         >Send
-        </button>
-      </form>
+        </Button>
+      </Form>
     );
   }
 }
