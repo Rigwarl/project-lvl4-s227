@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { handleActions, type ActionType } from 'redux-actions';
 import * as actions from '../actions';
-import type { ChannelsMap, MessagesMap, User, ChannelsListState } from '../types';
+import type { ChannelsMap, MessagesMap, User } from '../types';
 
 const user = handleActions({
   [actions.initApp.toString()](
@@ -51,16 +51,11 @@ const channels = handleActions({
   },
 }, {});
 
-const channelsListState = handleActions({
-  [actions.changeChannelsList.toString()](
-    state: ChannelsListState,
-    action: ActionType<typeof actions.changeChannelsList>,
-  ): ChannelsListState {
-    const { payload } = action;
-
-    return payload;
+const channelsEditing = handleActions({
+  [actions.toggleChannels.toString()](state: boolean): boolean {
+    return !state;
   },
-}, 'default');
+}, false);
 
 const currentChannelId = handleActions({
   [actions.initApp.toString()](
@@ -86,7 +81,7 @@ export default combineReducers({
   user,
   messages,
   channels,
-  channelsListState,
+  channelsEditing,
   currentChannelId,
   form: formReducer,
 });
