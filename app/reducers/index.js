@@ -60,6 +60,15 @@ const currentChannelId = handleActions({
 
     return payload.currentChannelId;
   },
+
+  [actions.changeCurrentChannel.toString()](
+    state: number,
+    action: ActionType<typeof actions.changeCurrentChannel>,
+  ) {
+    const { payload } = action;
+
+    return payload;
+  },
 }, 0);
 
 export default combineReducers({
