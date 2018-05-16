@@ -1,0 +1,8 @@
+@import url('~bootstrap/dist/css/bootstrap.min.css');
+
+@media (min-width: 960px) {
+  html {
+    margin-left: calc(100vw - 100%);
+  }
+}
+

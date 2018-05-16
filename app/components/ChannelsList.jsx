@@ -24,14 +24,17 @@ const mapStateToProps = (state: State): Props => ({
 const dispatchToProps: DispatchProps = { onChannelClick: changeCurrentChannel };
 
 const renderChannelItem = ({ id, name }, currentChannelId, onChannelClick) => {
+  const active = id === currentChannelId;
   const className = cn({
     'list-group-item': true,
-    active: id === currentChannelId,
+    active,
   });
 
   return (
     <li
       key={id}
+      role="menuitemradio"
+      aria-checked={active}
       className={className}
       onClick={() => onChannelClick(id)}
     >
@@ -41,7 +44,7 @@ const renderChannelItem = ({ id, name }, currentChannelId, onChannelClick) => {
 };
 
 const ChannelsList = ({ channels, currentChannelId, onChannelClick }: Props & DispatchProps) => (
-  <ul className="list-group">
+  <ul className="list-group" role="menu">
     {channels.map(channel => renderChannelItem(channel, currentChannelId, onChannelClick))}
   </ul>
 );
