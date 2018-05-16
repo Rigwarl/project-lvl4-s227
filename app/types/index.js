@@ -38,10 +38,13 @@ export type InitData = {|
   +currentChannelId: number,
 |};
 
+export type PopupState = 'closed' | 'newChannel';
+
 export type State = {|
   +user: User,
   +messages: MessagesMap,
   +channels: ChannelsMap,
-  channelsEditing: boolean,
+  +channelsEditing: boolean,
   +currentChannelId: number,
+  +popupState: PopupState,
 |};

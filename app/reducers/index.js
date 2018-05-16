@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { handleActions, type ActionType } from 'redux-actions';
 import * as actions from '../actions';
-import type { ChannelsMap, MessagesMap, User } from '../types';
+import type { ChannelsMap, MessagesMap, User, PopupState } from '../types';
 
 const user = handleActions({
   [actions.initApp.toString()](
@@ -77,11 +77,23 @@ const currentChannelId = handleActions({
   },
 }, 0);
 
+const popupState = handleActions({
+  [actions.changePopup.toString()](
+    state: PopupState,
+    action: ActionType<typeof actions.changePopup>,
+  ): PopupState {
+    const { payload } = action;
+
+    return payload;
+  },
+}, 'closed');
+
 export default combineReducers({
   user,
   messages,
   channels,
   channelsEditing,
   currentChannelId,
+  popupState,
   form: formReducer,
 });
