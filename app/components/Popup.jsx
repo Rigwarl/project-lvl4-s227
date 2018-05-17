@@ -17,6 +17,10 @@ const Popup = ({ popupName }: Props) => {
   switch (popupName) {
     case 'newChannel':
       return <NewChannelPopup />;
+    // case 'removeChannel':
+    //   return <RemoveChannelPopup />;
+    // case 'editChannel':
+    //   return <EditChannelPopup />;
     case 'none':
     default:
       return null;
