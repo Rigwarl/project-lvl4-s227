@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import NewChannelFormPopup from './NewChannelFormPopup';
+import NewChannelPopup from './NewChannelPopup';
 import type { State, PopupName } from '../types';
 
 type Props = {|
@@ -16,7 +16,7 @@ const mapStateToProps = (state: State): Props => ({
 const Popup = ({ popupName }: Props) => {
   switch (popupName) {
     case 'newChannel':
-      return <NewChannelFormPopup />;
+      return <NewChannelPopup />;
     case 'none':
     default:
       return null;

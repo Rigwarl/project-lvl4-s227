@@ -27,7 +27,7 @@ const dispatchProps: DispatchProps = {
 
 const renderInput = ({ input }): React.Element<any> => <Input {...input} placeholder="channel name" />;
 
-class NewChannelFormPopup extends React.Component<Props & DispatchProps & FormProps> {
+class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps> {
   onSubmit = async ({ name }) => {
     await this.props.addChannel(name);
     this.props.reset();
@@ -54,4 +54,4 @@ class NewChannelFormPopup extends React.Component<Props & DispatchProps & FormPr
 
 export default connect(mapStateToProps, dispatchProps)(reduxForm({
   form: 'newChannel',
-})(NewChannelFormPopup));
+})(NewChannelPopup));
