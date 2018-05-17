@@ -15,6 +15,12 @@ type DispatchProps = {|
   close: typeof closePopup,
 |};
 
+const mapStateToProps = (state: State): Props => ({
+  popup: state.popup,
+});
+
+const dispatchToProps = { close: closePopup };
+
 const renderInput = ({ input }): React.Element<any> => <Input {...input} />;
 
 const ChannelForm = ({ id, handleSubmit }) => (
@@ -26,12 +32,6 @@ const ChannelForm = ({ id, handleSubmit }) => (
 const ReduxChannelForm = reduxForm({
   form: 'channel',
 })(ChannelForm);
-
-const mapStateToProps = (state: State): Props => ({
-  popup: state.popup,
-});
-
-const dispatchToProps = { close: closePopup };
 
 const renderNewChannelPopup = (open, close) => (
   <Modal isOpen={open} toggle={close}>
