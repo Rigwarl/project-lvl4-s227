@@ -2,11 +2,13 @@
 
 import { createAction } from 'redux-actions';
 import { request } from '../server';
-import type { InitData, NewMessage, Message, PopupState } from '../types';
+import type { InitData, NewMessage, Message, PopupName } from '../types';
 
 export const initApp = createAction('APP_INIT', (data: InitData) => data);
 
-export const changePopup = createAction('POPUP_CHANGE', (state: PopupState) => state);
+export const openPopup = createAction('POPUP_OPEN', (name: PopupName) => name);
+
+export const closePopup = createAction('POPUP_CLOSE');
 
 export const toggleChannels = createAction('CHANNELS_TOGGLE');
 

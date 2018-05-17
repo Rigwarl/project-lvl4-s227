@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { handleActions, type ActionType } from 'redux-actions';
 import * as actions from '../actions';
-import type { ChannelsMap, MessagesMap, User, PopupState } from '../types';
+import type { ChannelsMap, MessagesMap, User, Popup } from '../types';
 
 const user = handleActions({
   [actions.initApp.toString()](
@@ -77,16 +77,26 @@ const currentChannelId = handleActions({
   },
 }, 0);
 
-const popupState = handleActions({
-  [actions.changePopup.toString()](
-    state: PopupState,
-    action: ActionType<typeof actions.changePopup>,
-  ): PopupState {
+const popup = handleActions({
+  [actions.openPopup.toString()](
+    state: Popup,
+    action: ActionType<typeof actions.openPopup>,
+  ): Popup {
     const { payload } = action;
 
-    return payload;
+    return {
+      name: payload,
+      open: true,
+    };
   },
-}, 'closed');
+
+  [actions.closePopup.toString()](state: Popup): Popup {
+    return {
+      ...state,
+      open: false,
+    };
+  },
+}, { name: 'none', open: false });
 
 export default combineReducers({
   user,
@@ -94,6 +104,6 @@ export default combineReducers({
   channels,
   channelsEditing,
   currentChannelId,
-  popupState,
+  popup,
   form: formReducer,
 });

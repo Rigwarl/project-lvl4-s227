@@ -38,7 +38,12 @@ export type InitData = {|
   +currentChannelId: number,
 |};
 
-export type PopupState = 'closed' | 'newChannel';
+export type PopupName = 'none' | 'newChannel';
+
+export type Popup = {|
+  name: PopupName,
+  open: boolean,
+|};
 
 export type State = {|
   +user: User,
@@ -46,5 +51,5 @@ export type State = {|
   +channels: ChannelsMap,
   +channelsEditing: boolean,
   +currentChannelId: number,
-  +popupState: PopupState,
+  +popup: Popup,
 |};
