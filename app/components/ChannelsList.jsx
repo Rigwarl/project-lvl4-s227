@@ -31,13 +31,17 @@ const dispatchToProps: DispatchProps = {
   addNewChannel: () => openPopup('newChannel'),
 };
 
-const renderChannelListItem = ({ id, name }, currentChannelId, onChannelClick) => (
+const renderChannelListItem = ({ id, name }, currentChannelId, onChannelClick, editing) => (
   <ListGroupItem
     key={id}
-    active={id === currentChannelId}
-    onClick={() => onChannelClick(id)}
+    active={!editing && id === currentChannelId}
+    onClick={() => !editing && onChannelClick(id)}
+    action={!editing}
+    className="d-flex"
   >
-    {name}
+    <span className="mr-auto">{name}</span>
+    {editing && <Button color="link">edit</Button>}
+    {editing && <Button color="link">remove</Button>}
   </ListGroupItem>
 );
 
@@ -46,8 +50,8 @@ const renderButtons = (editing, toggleEditing, addNewChannel) => (
     <Button color="link" onClick={toggleEditing}>cancel</Button>
     :
     <React.Fragment>
-      <Button color="link" onClick={addNewChannel}>add</Button>
       <Button color="link" onClick={toggleEditing}>edit</Button>
+      <Button color="link" onClick={addNewChannel}>add</Button>
     </React.Fragment>
 );
 
@@ -57,7 +61,7 @@ const ChannelsList = ({
   <div>
     <ListGroup>
       {channels.map(channel =>
-        renderChannelListItem(channel, currentChannelId, onChannelClick))}
+        renderChannelListItem(channel, currentChannelId, onChannelClick, editing))}
     </ListGroup>
     {renderButtons(editing, toggleEditing, addNewChannel)}
   </div>
