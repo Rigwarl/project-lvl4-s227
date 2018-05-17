@@ -49,6 +49,15 @@ const channels = handleActions({
 
     return { ...channelsById };
   },
+
+  [actions.addChannelEvent.toString()](
+    state: ChannelsMap,
+    action: ActionType<typeof actions.addChannelEvent>,
+  ): ChannelsMap {
+    const { payload } = action;
+
+    return { ...state, [payload.id]: payload };
+  },
 }, {});
 
 const channelsEditing = handleActions({

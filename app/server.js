@@ -35,6 +35,7 @@ export const request = {
 export const connect = (dispatch: Function, actions: any) => {
   const socketActions = {
     newMessage: ({ attributes }) => actions.addMessageEvent(attributes),
+    newChannel: ({ attributes }) => actions.addChannelEvent(attributes),
   };
   const socket = io();
 

@@ -16,6 +16,8 @@ export const changeCurrentChannel = createAction('CHANNEL_CURRENT_CHANGE', (id: 
 
 export const addMessageEvent = createAction('MESSAGE_ADD_EVENT', (message: Message) => message);
 
+export const addChannelEvent = createAction('CHANNEL_ADD_EVENT', (message: Message) => message);
+
 export const addMessage = (message: NewMessage) => () => request.addMessage(message);
 
 export const addChannel = (name: string) => () => request.addChannel(name);
