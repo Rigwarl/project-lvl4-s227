@@ -1,8 +1,9 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Input } from 'reactstrap';
+import { Field, reduxForm } from 'redux-form';
 import { closePopup } from '../actions';
 import type { State, Popup as PopupType } from '../types';
 
@@ -14,6 +15,18 @@ type DispatchProps = {|
   close: typeof closePopup,
 |};
 
+const renderInput = ({ input }): React.Element<any> => <Input {...input} />;
+
+const ChannelForm = ({ id, handleSubmit }) => (
+  <form id={id} onSubmit={handleSubmit}>
+    <Field name="name" component={renderInput} />
+  </form>
+);
+
+const ReduxChannelForm = reduxForm({
+  form: 'channel',
+})(ChannelForm);
+
 const mapStateToProps = (state: State): Props => ({
   popup: state.popup,
 });
@@ -24,10 +37,10 @@ const renderNewChannelPopup = (open, close) => (
   <Modal isOpen={open} toggle={close}>
     <ModalHeader toggle={close}>Add new channel</ModalHeader>
     <ModalBody>
-      form here
+      <ReduxChannelForm id="channel" onSubmit={v => console.log(v)} />
     </ModalBody>
     <ModalFooter>
-      <Button color="primary" onClick={close}>add</Button>
+      <Button type="submit" form="channel" color="primary">add</Button>
       <Button color="secondary" onClick={close}>Cancel</Button>
     </ModalFooter>
   </Modal>
