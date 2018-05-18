@@ -31,7 +31,10 @@ const dispatchToProps: DispatchProps = {
   addNewChannel: () => openPopup('newChannel'),
 };
 
-const renderChannelListItem = ({ id, name }, currentChannelId, onChannelClick, editing) => (
+const renderChannelListItem = (
+  { id, name, removable },
+  currentChannelId, onChannelClick, editing,
+) => (
   <ListGroupItem
     key={id}
     active={!editing && id === currentChannelId}
@@ -40,8 +43,8 @@ const renderChannelListItem = ({ id, name }, currentChannelId, onChannelClick, e
     className="d-flex"
   >
     <span className="mr-auto">{name}</span>
-    {editing && <Button color="link">edit</Button>}
-    {editing && <Button color="link">remove</Button>}
+    {editing && removable && <Button color="link">edit</Button>}
+    {editing && removable && <Button color="link">remove</Button>}
   </ListGroupItem>
 );
 
