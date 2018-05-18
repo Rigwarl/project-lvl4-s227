@@ -38,7 +38,7 @@ export type InitData = {|
   +currentChannelId: number,
 |};
 
-export type PopupName = 'none' | 'newChannel' | 'removeChannel';
+export type PopupName = 'none' | 'newChannel' | 'removeChannel' | 'editChannel';
 
 export type Popup = {|
   name: PopupName,

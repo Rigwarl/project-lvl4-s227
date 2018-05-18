@@ -20,4 +20,5 @@ export const removeChannelEvent = createAction('CHANNEL_REMOVE_EVENT', (id: numb
 
 export const addMessage = (message: NewMessage) => () => request.addMessage(message);
 export const addChannel = (name: string) => () => request.addChannel(name);
+export const editChannel = (channel: Channel) => () => request.editChannel(channel);
 export const removeChannel = (id: number) => () => request.removeChannel(id);

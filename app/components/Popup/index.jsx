@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import NewChannelPopup from './NewChannelPopup';
 import RemoveChannelPopup from './RemoveChannelPopup';
+import EditChannelPopup from './EditChannelPopup';
 import type { State, PopupName } from '../../types';
 
 type Props = {|
@@ -20,8 +21,8 @@ const Popup = ({ popupName }: Props) => {
       return <NewChannelPopup />;
     case 'removeChannel':
       return <RemoveChannelPopup />;
-    // case 'editChannel':
-    //   return <EditChannelPopup />;
+    case 'editChannel':
+      return <EditChannelPopup />;
     case 'none':
     default:
       return null;

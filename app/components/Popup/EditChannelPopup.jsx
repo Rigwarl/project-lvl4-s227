@@ -4,24 +4,32 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Button, Input } from 'reactstrap';
 import { Field, reduxForm, type FormProps } from 'redux-form';
-import { closePopup, addChannel } from '../../actions';
-import type { State } from '../../types';
+import { closePopup, editChannel } from '../../actions';
+import type { State, Channel } from '../../types';
 
 type Props = {|
   opened: boolean,
+  channel: Channel,
 |};
 
 type DispatchProps = {|
   closePopup: typeof closePopup,
-  addChannel: typeof addChannel,
+  editChannel: typeof editChannel,
 |};
 
-const mapStateToProps = (state: State): Props => ({
-  opened: state.popup.open,
-});
+const mapStateToProps = (state: State): Props => {
+  if (typeof state.popup.data !== 'number') {
+    throw new Error('Edit Channel Popup need channelId as data prop');
+  }
+
+  return {
+    opened: state.popup.open,
+    channel: state.channels.byId[state.popup.data],
+  };
+};
 
 const dispatchProps: DispatchProps = {
-  addChannel,
+  editChannel,
   closePopup,
 };
 
@@ -29,7 +37,7 @@ const renderInput = ({ input }): React.Element<any> => <Input {...input} placeho
 
 class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps> {
   onSubmit = async ({ name }) => {
-    await this.props.addChannel(name);
+    await this.props.editChannel({ ...this.props.channel, name });
     this.props.reset();
     this.props.closePopup();
   }
@@ -37,14 +45,16 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
   render() {
     return (
       <Modal isOpen={this.props.opened} toggle={this.props.closePopup}>
-        <ModalHeader toggle={this.props.closePopup}>Add channel</ModalHeader>
+        <ModalHeader toggle={this.props.closePopup}>
+          Edit channel {this.props.channel.name}
+        </ModalHeader>
         <ModalBody>
-          <Form id="channel-new-form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
+          <Form id="channel-edit-form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
             <Field name="name" component={renderInput} />
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button form="channel-new-form" type="submit" color="primary">add</Button>
+          <Button form="channel-edit-form" type="submit" color="primary">save</Button>
           <Button color="secondary" onClick={this.props.closePopup}>Cancel</Button>
         </ModalFooter>
       </Modal>
@@ -53,5 +63,5 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
 }
 
 export default connect(mapStateToProps, dispatchProps)(reduxForm({
-  form: 'newChannel',
+  form: 'editChannel',
 })(NewChannelPopup));

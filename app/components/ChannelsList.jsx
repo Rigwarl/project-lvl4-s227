@@ -39,7 +39,7 @@ const renderChannelListItem = (
     className="d-flex"
   >
     <span className="mr-auto">{name}</span>
-    {editing && removable && <Button color="link">edit</Button>}
+    {editing && removable && <Button color="link" onClick={() => openPopup('editChannel', id)}>edit</Button>}
     {editing && removable && <Button color="link" onClick={() => openPopup('removeChannel', id)}>remove</Button>}
   </ListGroupItem>
 );
