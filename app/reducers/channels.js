@@ -56,9 +56,13 @@ const visible = handleActions({
   },
 }, []);
 
-const editing = handleActions({
+const listEditing = handleActions({
   [actions.toggleChannels.toString()](state: boolean): boolean {
     return !state;
+  },
+
+  [actions.closePopup.toString()](): boolean {
+    return false;
   },
 }, false);
 
@@ -86,5 +90,5 @@ export default combineReducers({
   byId,
   visible,
   currentId,
-  editing,
+  listEditing,
 });

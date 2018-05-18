@@ -52,8 +52,8 @@ export type State = {|
   +channels: {|
     +byId: ChannelsMap,
     +visible: number[],
-    +editing: boolean,
     +currentId: number,
+    +listEditing: boolean,
   |},
   +popup: Popup,
 |};
