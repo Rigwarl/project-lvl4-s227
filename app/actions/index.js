@@ -15,7 +15,8 @@ export const toggleChannels = createAction('CHANNELS_TOGGLE');
 export const changeCurrentChannel = createAction('CHANNEL_CURRENT_CHANGE', (id: number) => id);
 
 export const addMessageEvent = createAction('MESSAGE_ADD_EVENT', (message: Message) => message);
-export const addChannelEvent = createAction('CHANNEL_ADD_EVENT', (message: Channel) => message);
+export const addChannelEvent = createAction('CHANNEL_ADD_EVENT', (channel: Channel) => channel);
+export const editChannelEvent = createAction('CHANNEL_EDIT_EVENT', (channel: Channel) => channel);
 export const removeChannelEvent = createAction('CHANNEL_REMOVE_EVENT', (id: number) => id);
 
 export const addMessage = (message: NewMessage) => () => request.addMessage(message);

@@ -25,6 +25,15 @@ const byId = handleActions({
 
     return { ...state, [payload.id]: payload };
   },
+
+  [actions.editChannelEvent.toString()](
+    state: ChannelsMap,
+    action: ActionType<typeof actions.editChannelEvent>,
+  ): ChannelsMap {
+    const { payload } = action;
+
+    return { ...state, [payload.id]: payload };
+  },
 }, {});
 
 const visible = handleActions({
