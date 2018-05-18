@@ -38,6 +38,15 @@ const messages = handleActions({
 
     return { ...state, [payload.id]: payload };
   },
+
+  [actions.removeChannelEvent.toString()](
+    state: MessagesMap,
+    action: ActionType<typeof actions.removeChannelEvent>,
+  ): MessagesMap {
+    const { payload } = action;
+
+    return _.omitBy({ ...state }, ({ channelId }) => channelId === payload);
+  },
 }, {});
 
 
