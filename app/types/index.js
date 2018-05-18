@@ -49,8 +49,11 @@ export type Popup = {|
 export type State = {|
   +user: User,
   +messages: MessagesMap,
-  +channels: ChannelsMap,
-  +channelsEditing: boolean,
-  +currentChannelId: number,
+  +channels: {|
+    +byId: ChannelsMap,
+    +visible: number[],
+    +editing: boolean,
+    +currentId: number,
+  |},
   +popup: Popup,
 |};

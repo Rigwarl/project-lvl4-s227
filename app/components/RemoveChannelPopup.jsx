@@ -23,7 +23,7 @@ const mapStateToProps = (state: State): Props => {
 
   return {
     opened: state.popup.open,
-    channel: state.channels[state.popup.data],
+    channel: state.channels.byId[state.popup.data],
   };
 };
 

@@ -14,7 +14,7 @@ export type Props = {|
 
 const mapStateToProps = (state: State): Props => ({
   userName: state.user.name,
-  channelId: state.currentChannelId,
+  channelId: state.channels.currentId,
 });
 
 const renderTextarea = ({ input }): React.Element<any> => (

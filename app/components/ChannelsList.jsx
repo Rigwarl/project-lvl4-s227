@@ -20,9 +20,9 @@ type DispatchProps = {
 };
 
 const mapStateToProps = (state: State): Props => ({
-  editing: state.channelsEditing,
+  editing: state.channels.editing,
   channels: channelsSelector(state),
-  currentChannelId: state.currentChannelId,
+  currentChannelId: state.channels.currentId,
 });
 
 const dispatchToProps: DispatchProps = actions;
