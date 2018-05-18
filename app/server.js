@@ -27,9 +27,19 @@ const addChannel = async (name: string): Promise<Channel> => {
   return attributes;
 };
 
+const removeChannel = async (id: number): Promise<void> => {
+  const data = {
+    type: 'channels',
+    attributes: { id },
+  };
+  const route = routes.channel(id);
+  await axios.delete(route, { data });
+};
+
 export const request = {
   addMessage,
   addChannel,
+  removeChannel,
 };
 
 export const connect = (dispatch: Function, actions: any) => {
