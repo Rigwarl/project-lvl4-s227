@@ -94,7 +94,7 @@ const popup = handleActions({
     const { payload } = action;
 
     return {
-      name: payload,
+      ...payload,
       open: true,
     };
   },

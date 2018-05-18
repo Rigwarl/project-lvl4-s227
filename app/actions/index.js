@@ -6,7 +6,7 @@ import type { InitData, NewMessage, Message, PopupName } from '../types';
 
 export const initApp = createAction('APP_INIT', (data: InitData) => data);
 
-export const openPopup = createAction('POPUP_OPEN', (name: PopupName) => name);
+export const openPopup = createAction('POPUP_OPEN', (name: PopupName, data?: any) => ({ name, data }));
 
 export const closePopup = createAction('POPUP_CLOSE');
 

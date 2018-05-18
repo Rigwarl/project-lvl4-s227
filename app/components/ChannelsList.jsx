@@ -17,7 +17,6 @@ type DispatchProps = {
   changeCurrentChannel: typeof actions.changeCurrentChannel,
   toggleChannels: typeof actions.toggleChannels,
   openPopup: typeof actions.openPopup,
-  removeChannel: typeof actions.removeChannel,
 };
 
 const mapStateToProps = (state: State): Props => ({
@@ -30,7 +29,7 @@ const dispatchToProps: DispatchProps = actions;
 
 const renderChannelListItem = (
   { id, name, removable }, currentChannelId, editing,
-  changeCurrentChannel, removeChannel,
+  changeCurrentChannel, openPopup,
 ) => (
   <ListGroupItem
     key={id}
@@ -41,7 +40,7 @@ const renderChannelListItem = (
   >
     <span className="mr-auto">{name}</span>
     {editing && removable && <Button color="link">edit</Button>}
-    {editing && removable && <Button color="link" onClick={() => removeChannel(id)}>remove</Button>}
+    {editing && removable && <Button color="link" onClick={() => openPopup('removeChannel', id)}>remove</Button>}
   </ListGroupItem>
 );
 
@@ -57,14 +56,14 @@ const renderButtons = (editing, toggleChannels, openPopup) => (
 
 const ChannelsList = ({
   editing, channels, currentChannelId,
-  changeCurrentChannel, toggleChannels, openPopup, removeChannel,
+  changeCurrentChannel, toggleChannels, openPopup,
 }: Props & DispatchProps) => (
   <div>
     <ListGroup>
       {channels.map(channel =>
         renderChannelListItem(
           channel, currentChannelId, editing,
-          changeCurrentChannel, removeChannel,
+          changeCurrentChannel, openPopup,
         ))}
     </ListGroup>
     {renderButtons(editing, toggleChannels, openPopup)}
