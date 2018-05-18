@@ -4,8 +4,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Button, Input } from 'reactstrap';
 import { Field, reduxForm, type FormProps } from 'redux-form';
-import { closePopup, addChannel } from '../actions';
-import type { State } from '../types';
+import { closePopup, addChannel } from '../../actions';
+import type { State } from '../../types';
 
 type Props = {|
   opened: boolean,

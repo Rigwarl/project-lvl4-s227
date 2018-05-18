@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import * as actions from '../actions';
-import type { State, Channel } from '../types';
+import * as actions from '../../actions';
+import type { State, Channel } from '../../types';
 
 type Props = {|
   opened: boolean,

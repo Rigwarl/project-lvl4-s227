@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import NewChannelPopup from './NewChannelPopup';
 import RemoveChannelPopup from './RemoveChannelPopup';
-import type { State, PopupName } from '../types';
+import type { State, PopupName } from '../../types';
 
 type Props = {|
   popupName: PopupName,

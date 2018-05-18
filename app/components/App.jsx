@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import ChannelsList from './ChannelsList';
 import MessagesList from './MessagesList';
 import NewMessageForm from './NewMessageForm';
-import Popup from './Popup.jsx';
+import Popup from './Popup';
 
 const App = () => (
   <div>
