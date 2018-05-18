@@ -84,6 +84,15 @@ const currentId = handleActions({
 
     return payload;
   },
+
+  [actions.removeChannelEvent.toString()](
+    state: number[],
+    action: ActionType<typeof actions.removeChannelEvent>,
+  ): ChannelsMap {
+    const { payload } = action;
+
+    return state === payload ? GENERAL_CHANNEL_ID : state;
+  },
 }, GENERAL_CHANNEL_ID);
 
 export default combineReducers({
