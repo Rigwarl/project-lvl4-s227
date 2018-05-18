@@ -8,7 +8,7 @@ import type { State, Channel } from '../types';
 
 type Props = {|
   opened: boolean,
-  channel?: Channel,
+  channel: Channel,
 |};
 
 type DispatchProps = {
@@ -31,19 +31,15 @@ const dispatchProps: DispatchProps = actions;
 
 class RemoveChannelPopup extends React.Component<Props & DispatchProps> {
   onRemove = async () => {
-    const { channel } = this.props;
-
-    await this.props.removeChannel(channel ? channel.id : -1);
+    await this.props.removeChannel(this.props.channel.id);
     this.props.closePopup();
   }
 
   render() {
-    const { channel } = this.props;
-
     return (
       <Modal isOpen={this.props.opened} toggle={this.props.closePopup}>
         <ModalHeader toggle={this.props.closePopup}>
-          Remove channel {channel && channel.name}?
+          Remove channel {this.props.channel.name}?
         </ModalHeader>
         <ModalBody>
           You will not be able to restore it!
