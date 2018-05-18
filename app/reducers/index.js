@@ -7,6 +7,8 @@ import { handleActions, type ActionType } from 'redux-actions';
 import * as actions from '../actions';
 import type { ChannelsMap, MessagesMap, User, Popup } from '../types';
 
+const GENERAL_CHANNEL_ID = 1;
+
 const user = handleActions({
   [actions.initApp.toString()](
     state: User,
@@ -58,6 +60,15 @@ const channels = handleActions({
 
     return { ...state, [payload.id]: payload };
   },
+
+  [actions.removeChannelEvent.toString()](
+    state: ChannelsMap,
+    action: ActionType<typeof actions.removeChannelEvent>,
+  ): ChannelsMap {
+    const { payload } = action;
+
+    return _.omit(state, payload.toString());
+  },
 }, {});
 
 const channelsEditing = handleActions({
@@ -84,7 +95,7 @@ const currentChannelId = handleActions({
 
     return payload;
   },
-}, 0);
+}, GENERAL_CHANNEL_ID);
 
 const popup = handleActions({
   [actions.openPopup.toString()](
