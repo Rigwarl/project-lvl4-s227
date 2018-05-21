@@ -1,3 +1,5 @@
+// @flow
+
 import _ from 'lodash';
 import { combineReducers } from 'redux';
 import { handleActions, type ActionType } from 'redux-actions';
@@ -40,7 +42,7 @@ const visible = handleActions({
   [actions.initApp.toString()](
     state: number[],
     action: ActionType<typeof actions.initApp>,
-  ): ChannelsMap {
+  ): number[] {
     const { payload } = action;
 
     return payload.channels.map(({ id }) => id);
@@ -49,7 +51,7 @@ const visible = handleActions({
   [actions.addChannelEvent.toString()](
     state: number[],
     action: ActionType<typeof actions.addChannelEvent>,
-  ): ChannelsMap {
+  ): number[] {
     const { payload } = action;
 
     return [...state, payload.id];
@@ -58,7 +60,7 @@ const visible = handleActions({
   [actions.removeChannelEvent.toString()](
     state: number[],
     action: ActionType<typeof actions.removeChannelEvent>,
-  ): ChannelsMap {
+  ): number[] {
     const { payload } = action;
 
     return state.filter(id => id !== payload);
@@ -95,9 +97,9 @@ const currentId = handleActions({
   },
 
   [actions.removeChannelEvent.toString()](
-    state: number[],
+    state: number,
     action: ActionType<typeof actions.removeChannelEvent>,
-  ): ChannelsMap {
+  ): number {
     const { payload } = action;
 
     return state === payload ? GENERAL_CHANNEL_ID : state;
