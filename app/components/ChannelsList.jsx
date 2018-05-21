@@ -39,8 +39,22 @@ const renderChannelListItem = (
     className="d-flex"
   >
     <span className="mr-auto">{name}</span>
-    {editing && removable && <Button color="link" onClick={() => openPopup('editChannel', id)}>edit</Button>}
-    {editing && removable && <Button color="link" onClick={() => openPopup('removeChannel', id)}>remove</Button>}
+    {editing && removable &&
+      <React.Fragment>
+        <Button
+          color="link"
+          onClick={() => openPopup('editChannel', id)}
+          className="pt-0 pb-0 border-0"
+        >edit
+        </Button>
+        <Button
+          color="link"
+          onClick={() => openPopup('removeChannel', id)}
+          className="pt-0 pb-0 border-0"
+        >remove
+        </Button>
+      </React.Fragment>
+    }
   </ListGroupItem>
 );
 
