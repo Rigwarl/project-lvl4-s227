@@ -4,6 +4,10 @@ extends:
   - airbnb
   - "plugin:jest/recommended"
   - "plugin:react/recommended"
+  - "plugin:flowtype/recommended"
+  
+plugins:
+  - flowtype
 
 parser: babel-eslint
 
@@ -13,6 +17,5 @@ env:
   jest: true
 
 rules:
-  import/no-unresolved: 0
-  import/extensions: 0
-  react/prop-types: 0
+  import/no-unresolved: [2, { ignore: ['^gon$'] }]
+  import/extensions: [2, { ignore: ['^gon$'] }]

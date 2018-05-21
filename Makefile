@@ -16,7 +16,7 @@ build:
 	NODE_ENV=production npm run build
 	
 lint:
-	npm run eslint
+	npm run eslint ./app
 	
 check-types:
 	npm run flow
