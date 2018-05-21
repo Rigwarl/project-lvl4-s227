@@ -19,3 +19,4 @@ env:
 rules:
   import/no-unresolved: [2, { ignore: ['^gon$'] }]
   import/extensions: [2, { ignore: ['^gon$'] }]
+  react/prop-types: 0
