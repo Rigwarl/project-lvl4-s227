@@ -1,11 +1,13 @@
 @import url('~bootstrap/dist/css/bootstrap.min.css');
 
+/* fix scroll jump */
 @media (min-width: 960px) {
   html {
     margin-left: calc(100vw - 100%);
   }
+
+  .modal-open {
+    padding-right: 0 !important;
+  }
 }
 
-.modal-open {
-  padding-right: 0 !important;
-}
