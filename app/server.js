@@ -27,14 +27,14 @@ const addChannel = async (name: string): Promise<Channel> => {
   return attributes;
 };
 
-const holdChannel = async (id: number, userName: string): Promise<void> => {
-  const data = {
-    type: 'channels',
-    id,
-    meta: { userName },
-  };
+const holdChannel = async (id: number): Promise<void> => {
   const route = routes.holdChannel(id);
-  await axios.post(route, { data });
+
+  try {
+    await axios.post(route);
+  } catch (e) {
+    throw e.response.data.error[0];
+  }
 };
 
 const freeChannel = async (id: number, userName: string): Promise<void> => {

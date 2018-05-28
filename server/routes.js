@@ -15,7 +15,7 @@ export default (router, io) => {
     ],
     messages: [],
     holdChannels: [
-      // { id: 1, userName: 'vas9', time: Date.now() }
+      // { id: 1, time: Date.now() }
     ],
     currentChannelId: generalChannelId,
   };
@@ -91,11 +91,9 @@ export default (router, io) => {
         ctx.status = 403;
         ctx.body = data;
       } else {
-        const { meta: { userName } } = ctx.request.body;
         const holdChannel = {
           id: channelId,
           time: Date.now(),
-          userName,
         };
         state.holdChannels.push(holdChannel);
         ctx.status = 204;
