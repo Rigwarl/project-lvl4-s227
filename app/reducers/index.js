@@ -63,12 +63,6 @@ const popup = handleActions({
   [actions.closePopup.toString()](state: Popup): Popup {
     return { ...state, open: false };
   },
-
-  [actions.removeChannelEvent.toString()](state: Popup): Popup {
-    const close = ['removeChannel', 'editChannel'].includes(state.name);
-
-    return close ? { ...state, open: false } : state;
-  },
 }, { name: 'none', open: false });
 
 export default combineReducers({
