@@ -27,6 +27,26 @@ const addChannel = async (name: string): Promise<Channel> => {
   return attributes;
 };
 
+const holdChannel = async (id: number, userName: string): Promise<void> => {
+  const data = {
+    type: 'channels',
+    id,
+    meta: { userName },
+  };
+  const route = routes.holdChannel(id);
+  await axios.post(route, { data });
+};
+
+const freeChannel = async (id: number, userName: string): Promise<void> => {
+  const data = {
+    type: 'channels',
+    id,
+    meta: { userName },
+  };
+  const route = routes.holdChannel(id);
+  await axios.delete(route, { data });
+};
+
 const editChannel = async (channel: Channel): Promise<void> => {
   const data = {
     type: 'channels',
@@ -45,6 +65,8 @@ const removeChannel = async (id: number): Promise<void> => {
 export const request = {
   addMessage,
   addChannel,
+  holdChannel,
+  freeChannel,
   editChannel,
   removeChannel,
 };

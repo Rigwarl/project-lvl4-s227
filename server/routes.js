@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import Router from 'koa-router';
 
+const ERROR_CHANNEL_HOLD_ID = 1;
+
 const getNextId = () => Number(_.uniqueId());
 
 export default (router, io) => {
@@ -12,6 +14,9 @@ export default (router, io) => {
       { id: randomChannelId, name: 'random', removable: false },
     ],
     messages: [],
+    holdChannels: [
+      // { id: 1, userName: 'vas9', time: Date.now() }
+    ],
     currentChannelId: generalChannelId,
   };
 
@@ -71,6 +76,36 @@ export default (router, io) => {
         },
       };
       io.emit('renameChannel', data);
+    })
+    .post('/channels/:id/hold', (ctx) => {
+      const channelId = Number(ctx.params.id);
+      const exists = !!state.holdChannels.find(({ id }) => id === channelId);
+
+      if (exists) {
+        const data = {
+          error: [{
+            id: ERROR_CHANNEL_HOLD_ID,
+            title: 'Another user editing this channel, try again later.',
+          }],
+        };
+        ctx.status = 403;
+        ctx.body = data;
+      } else {
+        const { meta: { userName } } = ctx.request.body;
+        const holdChannel = {
+          id: channelId,
+          time: Date.now(),
+          userName,
+        };
+        state.holdChannels.push(holdChannel);
+        ctx.status = 204;
+      }
+    })
+    .delete('/channels/:id/hold', (ctx) => {
+      const channelId = Number(ctx.params.id);
+
+      state.holdChannels = state.holdChannels.filter(({ id }) => id !== channelId);
+      ctx.status = 204;
     })
     .get('/channels/:channelId/messages', (ctx) => {
       const messages = state.messages.filter(m => m.channelId === ctx.params.channelId);
