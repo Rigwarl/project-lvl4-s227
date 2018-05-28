@@ -5,22 +5,23 @@ import { connect } from 'react-redux';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { channelsSelector } from '../selectors';
 import * as actions from '../actions';
-import type { State, Channel } from '../types';
+import type { State, Channel, ChannelsListStatus } from '../types';
 
 type Props = {|
-  editing: boolean,
+  status: ChannelsListStatus,
   channels: Channel[],
   currentChannelId: number,
 |};
 
 type DispatchProps = {
   changeCurrentChannel: typeof actions.changeCurrentChannel,
-  toggleChannels: typeof actions.toggleChannels,
+  setChannelsList: typeof actions.setChannelsList,
   openPopup: typeof actions.openPopup,
+  holdChannel: typeof actions.holdChannel,
 };
 
 const mapStateToProps = (state: State): Props => ({
-  editing: state.channels.listEditing,
+  status: state.channels.listStatus,
   channels: channelsSelector(state),
   currentChannelId: state.channels.currentId,
 });
@@ -28,28 +29,30 @@ const mapStateToProps = (state: State): Props => ({
 const dispatchToProps: DispatchProps = actions;
 
 const renderChannelListItem = (
-  { id, name, removable }, currentChannelId, editing,
-  changeCurrentChannel, openPopup,
+  { id, name, removable }, currentChannelId, status,
+  changeCurrentChannel, holdChannel,
 ) => (
   <ListGroupItem
     key={id}
-    active={!editing && id === currentChannelId}
-    onClick={() => !editing && changeCurrentChannel(id)}
-    action={!editing}
+    active={status === 'default' && id === currentChannelId}
+    onClick={() => status === 'default' && changeCurrentChannel(id)}
+    action={status === 'default'}
     className="d-flex"
   >
     <span className="mr-auto">{name}</span>
-    {editing && removable &&
+    {status !== 'default' && removable &&
       <React.Fragment>
         <Button
+          disabled={status === 'disabled'}
           color="link"
-          onClick={() => openPopup('editChannel', id)}
+          onClick={() => holdChannel(id, 'editChannel')}
           className="pt-0 pb-0 border-0"
         >edit
         </Button>
         <Button
+          disabled={status === 'disabled'}
           color="link"
-          onClick={() => openPopup('removeChannel', id)}
+          onClick={() => holdChannel(id, 'removeChannel')}
           className="pt-0 pb-0 border-0"
         >remove
         </Button>
@@ -58,29 +61,34 @@ const renderChannelListItem = (
   </ListGroupItem>
 );
 
-const renderButtons = (editing, toggleChannels, openPopup) => (
-  editing ?
-    <Button color="link" onClick={toggleChannels}>cancel</Button>
+const renderButtons = (status, setChannelsList, openPopup) => (
+  status !== 'default' ?
+    <Button
+      disabled={status === 'disabled'}
+      color="link"
+      onClick={() => setChannelsList('default')}
+    >cancel
+    </Button>
     :
     <React.Fragment>
-      <Button color="link" onClick={toggleChannels}>edit</Button>
+      <Button color="link" onClick={() => setChannelsList('editing')}>edit</Button>
       <Button color="link" onClick={() => openPopup('newChannel')}>add</Button>
     </React.Fragment>
 );
 
 const ChannelsList = ({
-  editing, channels, currentChannelId,
-  changeCurrentChannel, toggleChannels, openPopup,
+  status, channels, currentChannelId,
+  changeCurrentChannel, setChannelsList, openPopup, holdChannel,
 }: Props & DispatchProps) => (
   <div>
     <ListGroup>
       {channels.map(channel =>
         renderChannelListItem(
-          channel, currentChannelId, editing,
-          changeCurrentChannel, openPopup,
+          channel, currentChannelId, status,
+          changeCurrentChannel, holdChannel,
         ))}
     </ListGroup>
-    {renderButtons(editing, toggleChannels, openPopup)}
+    {renderButtons(status, setChannelsList, openPopup)}
   </div>
 );
 

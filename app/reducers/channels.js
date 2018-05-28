@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { combineReducers } from 'redux';
 import { handleActions, type ActionType } from 'redux-actions';
 import * as actions from '../actions';
-import type { ChannelsMap } from '../types';
+import type { ChannelsMap, ChannelsListStatus } from '../types';
 
 const GENERAL_CHANNEL_ID = 1;
 
@@ -67,16 +67,6 @@ const visible = handleActions({
   },
 }, []);
 
-const listEditing = handleActions({
-  [actions.toggleChannels.toString()](state: boolean): boolean {
-    return !state;
-  },
-
-  [actions.closePopup.toString()](): boolean {
-    return false;
-  },
-}, false);
-
 const currentId = handleActions({
   [actions.initApp.toString()](
     state: number,
@@ -106,9 +96,18 @@ const currentId = handleActions({
   },
 }, GENERAL_CHANNEL_ID);
 
+const listStatus = handleActions({
+  [actions.setChannelsList.toString()](
+    state: ChannelsListStatus,
+    action: ActionType<typeof actions.setChannelsList>,
+  ): ChannelsListStatus {
+    return action.payload;
+  },
+}, 'default');
+
 export default combineReducers({
   byId,
   visible,
   currentId,
-  listEditing,
+  listStatus,
 });

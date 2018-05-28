@@ -38,13 +38,15 @@ export type InitData = {|
   +currentChannelId: number,
 |};
 
-export type PopupName = 'none' | 'newChannel' | 'removeChannel' | 'editChannel';
+export type PopupName = 'none' | 'newChannel' | 'removeChannel' | 'editChannel' | 'blockedChannel';
 
 export type Popup = {|
   name: PopupName,
   open: boolean,
   data?: any,
 |};
+
+export type ChannelsListStatus = 'default' | 'editing' | 'disabled';
 
 export type State = {|
   +user: User,
@@ -53,7 +55,7 @@ export type State = {|
     +byId: ChannelsMap,
     +visible: number[],
     +currentId: number,
-    +listEditing: boolean,
+    +listStatus: ChannelsListStatus,
   |},
   +popup: Popup,
 |};

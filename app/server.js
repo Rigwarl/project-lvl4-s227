@@ -37,14 +37,9 @@ const holdChannel = async (id: number): Promise<void> => {
   }
 };
 
-const freeChannel = async (id: number, userName: string): Promise<void> => {
-  const data = {
-    type: 'channels',
-    id,
-    meta: { userName },
-  };
+const freeChannel = async (id: number): Promise<void> => {
   const route = routes.holdChannel(id);
-  await axios.delete(route, { data });
+  await axios.delete(route);
 };
 
 const editChannel = async (channel: Channel): Promise<void> => {
