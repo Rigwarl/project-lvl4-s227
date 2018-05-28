@@ -32,7 +32,7 @@ const RemoveChannelPopup = ({
   opened, channel, closePopup,
 }: Props & DispatchProps) => (
   <Modal isOpen={opened} toggle={closePopup}>
-    <ModalHeader toggle={closePopup} className="text-danger">
+    <ModalHeader toggle={closePopup}>
       Channel {channel.name} is editing by another user.
     </ModalHeader>
     <ModalBody>
