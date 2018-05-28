@@ -44,8 +44,19 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button form="channel-new-form" type="submit" color="primary">add</Button>
-          <Button color="secondary" onClick={this.props.closePopup}>Cancel</Button>
+          <Button
+            form="channel-new-form"
+            type="submit"
+            color="primary"
+            disabled={this.props.submitting}
+          >add
+          </Button>
+          <Button
+            color="secondary"
+            onClick={this.props.closePopup}
+            disabled={this.props.submitting}
+          >Cancel
+          </Button>
         </ModalFooter>
       </Modal>
     );
