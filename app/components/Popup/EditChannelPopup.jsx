@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Button, Input } from 'reactstrap';
 import { Field, reduxForm, type FormProps } from 'redux-form';
-import { closePopup, editChannel } from '../../actions';
+import { freeChannel, editChannel } from '../../actions';
 import type { State, Channel } from '../../types';
 
 type Props = {|
@@ -13,7 +13,7 @@ type Props = {|
 |};
 
 type DispatchProps = {|
-  closePopup: typeof closePopup,
+  freeChannel: typeof freeChannel,
   editChannel: typeof editChannel,
 |};
 
@@ -30,7 +30,7 @@ const mapStateToProps = (state: State): Props => {
 
 const dispatchProps: DispatchProps = {
   editChannel,
-  closePopup,
+  freeChannel,
 };
 
 const renderInput = ({ input }): React.Element<any> => <Input {...input} placeholder="channel name" />;
@@ -39,13 +39,17 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
   onSubmit = async ({ name }) => {
     await this.props.editChannel({ ...this.props.channel, name });
     this.props.reset();
-    this.props.closePopup();
+    this.onClose();
+  }
+
+  onClose = () => {
+    this.props.freeChannel(this.props.channel.id);
   }
 
   render() {
     return (
-      <Modal isOpen={this.props.opened} toggle={this.props.closePopup}>
-        <ModalHeader toggle={this.props.closePopup}>
+      <Modal isOpen={this.props.opened} toggle={this.onClose}>
+        <ModalHeader toggle={this.onClose}>
           Edit channel {this.props.channel.name}
         </ModalHeader>
         <ModalBody>
@@ -55,7 +59,7 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
         </ModalBody>
         <ModalFooter>
           <Button form="channel-edit-form" type="submit" color="primary">save</Button>
-          <Button color="secondary" onClick={this.props.closePopup}>Cancel</Button>
+          <Button color="secondary" onClick={this.onClose}>Cancel</Button>
         </ModalFooter>
       </Modal>
     );
