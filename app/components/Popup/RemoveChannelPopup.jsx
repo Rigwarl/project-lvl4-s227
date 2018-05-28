@@ -12,7 +12,7 @@ type Props = {|
 |};
 
 type DispatchProps = {
-  closePopup: typeof actions.closePopup,
+  freeChannel: typeof actions.freeChannel,
   removeChannel: typeof actions.removeChannel,
 };
 
@@ -32,13 +32,17 @@ const dispatchProps: DispatchProps = actions;
 class RemoveChannelPopup extends React.Component<Props & DispatchProps> {
   onRemove = async () => {
     await this.props.removeChannel(this.props.channel.id);
-    this.props.closePopup();
+    this.onClose();
+  }
+
+  onClose = () => {
+    this.props.freeChannel(this.props.channel.id);
   }
 
   render() {
     return (
-      <Modal isOpen={this.props.opened} toggle={this.props.closePopup}>
-        <ModalHeader toggle={this.props.closePopup}>
+      <Modal isOpen={this.props.opened} toggle={this.onClose}>
+        <ModalHeader toggle={this.onClose}>
           Remove channel {this.props.channel.name}?
         </ModalHeader>
         <ModalBody>
@@ -46,7 +50,7 @@ class RemoveChannelPopup extends React.Component<Props & DispatchProps> {
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={this.onRemove}>Remove</Button>
-          <Button color="secondary" onClick={this.props.closePopup}>Cancel</Button>
+          <Button color="secondary" onClick={this.onClose}>Cancel</Button>
         </ModalFooter>
       </Modal>
     );
