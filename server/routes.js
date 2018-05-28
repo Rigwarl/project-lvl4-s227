@@ -82,6 +82,10 @@ export default (router, io) => {
       const hold = state.holdChannels.find(({ id }) => id === channelId);
       const holdActive = !!hold && Date.now() < hold.time + (60 * 1000);
 
+      if (hold && !holdActive) {
+        state.holdChannels = state.holdChannels.filter(({ id }) => id !== channelId);
+      }
+
       if (holdActive) {
         const data = {
           error: [{
@@ -92,7 +96,6 @@ export default (router, io) => {
         ctx.status = 403;
         ctx.body = data;
       } else {
-        state.holdChannels = state.holdChannels.filter(({ id }) => id !== channelId);
         const holdChannel = {
           id: channelId,
           time: Date.now(),
