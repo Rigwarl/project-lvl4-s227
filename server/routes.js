@@ -80,7 +80,7 @@ export default (router, io) => {
     .post('/channels/:id/hold', (ctx) => {
       const channelId = Number(ctx.params.id);
       const hold = state.holdChannels.find(({ id }) => id === channelId);
-      const holdActive = !!hold && Date.now() < hold.time + (60 * 1000);
+      const holdActive = !!hold && Date.now() < hold.time + (2 * 60 * 1000);
 
       if (hold && !holdActive) {
         state.holdChannels = state.holdChannels.filter(({ id }) => id !== channelId);
