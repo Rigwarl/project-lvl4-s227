@@ -30,14 +30,9 @@ const mapStateToProps = (state: State): Props => {
 const dispatchProps: DispatchProps = actions;
 
 class RemoveChannelPopup extends React.Component<Props & DispatchProps> {
-  onRemove = async () => {
-    await this.props.removeChannel(this.props.channel.id);
-    this.onClose();
-  }
+  onRemove = () => this.props.removeChannel(this.props.channel.id)
 
-  onClose = () => {
-    this.props.freeChannel(this.props.channel.id);
-  }
+  onClose = () => this.props.freeChannel(this.props.channel.id)
 
   render() {
     return (

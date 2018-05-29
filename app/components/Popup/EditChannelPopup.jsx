@@ -36,15 +36,9 @@ const dispatchProps: DispatchProps = {
 const renderInput = ({ input }): React.Element<any> => <Input {...input} placeholder="channel name" />;
 
 class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps> {
-  onSubmit = async ({ name }) => {
-    await this.props.editChannel({ ...this.props.channel, name });
-    this.props.reset();
-    this.onClose();
-  }
+  onSubmit = ({ name }) => this.props.editChannel({ ...this.props.channel, name }, this.props.reset)
 
-  onClose = () => {
-    this.props.freeChannel(this.props.channel.id);
-  }
+  onClose = () => this.props.freeChannel(this.props.channel.id)
 
   render() {
     return (

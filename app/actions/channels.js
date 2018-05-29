@@ -15,10 +15,6 @@ export const addChannelEvent = createAction('CHANNEL_ADD_EVENT', (channel: Chann
 export const editChannelEvent = createAction('CHANNEL_EDIT_EVENT', (channel: Channel) => channel);
 export const removeChannelEvent = createAction('CHANNEL_REMOVE_EVENT', (id: number) => id);
 
-export const addChannel = (name: string) => () => request.addChannel(name);
-export const editChannel = (channel: Channel) => () => request.editChannel(channel);
-export const removeChannel = (id: number) => () => request.removeChannel(id);
-
 export const holdChannel = (id: number, popup: PopupName) => async (dispatch: Dispatch) => {
   dispatch(setChannelsList('disabled'));
 
@@ -38,4 +34,22 @@ export const freeChannel = (id: number) => async (dispatch: Dispatch) => {
   dispatch(setChannelsList('default'));
   dispatch(closePopup());
   await request.freeChannel(id);
+};
+
+export const addChannel = (name: string, resetForm: Function) => async (dispatch: Dispatch) => {
+  await request.addChannel(name);
+  resetForm();
+  dispatch(closePopup());
+};
+
+export const editChannel = (channel: Channel, resetForm: Function) =>
+  async (dispatch: Dispatch) => {
+    await request.editChannel(channel);
+    resetForm();
+    dispatch(freeChannel(channel.id));
+  };
+
+export const removeChannel = (id: number) => async (dispatch: Dispatch) => {
+  await request.removeChannel(id);
+  dispatch(freeChannel(id));
 };
