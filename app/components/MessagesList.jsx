@@ -6,12 +6,14 @@ import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { messagesSelector } from '../selectors';
 import type { State, Message } from '../types';
 
-export type Props = {|
+type Props = {|
   messages: Message[],
+  channelName: string,
 |};
 
 const mapStateToProps = (state: State): Props => ({
   messages: messagesSelector(state),
+  channelName: state.channels.byId[state.channels.currentId].name,
 });
 
 const renderMessageListItem = ({ id, text, userName }) => (
@@ -23,8 +25,12 @@ const renderMessageListItem = ({ id, text, userName }) => (
   </Card>
 );
 
-const MessagesList = ({ messages }: Props) => (
+const MessagesList = ({ channelName, messages }: Props) => (
   <div>
+    <h2 className="h3 mb-2">
+      <span className="font-weight-normal text-muted">#</span>
+      {channelName}
+    </h2>
     {messages.map(renderMessageListItem)}
   </div>
 );

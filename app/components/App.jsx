@@ -12,6 +12,7 @@ const App = () => (
     <Container className="pt-3">
       <Row>
         <Col sm="3" className="mb-4">
+          <h1 className="h3 mb-2">Slack Killer</h1>
           <ChannelsList />
         </Col>
         <Col sm="9" className="mb-4">
