@@ -10,6 +10,7 @@ import type { State, Channel } from '../../types';
 type Props = {|
   opened: boolean,
   channel: Channel,
+  initialValues: { name: string },
 |};
 
 type DispatchProps = {|
@@ -22,9 +23,12 @@ const mapStateToProps = (state: State): Props => {
     throw new Error('Edit Channel Popup need channelId as data prop');
   }
 
+  const channel = state.channels.byId[state.popup.data];
+
   return {
+    channel,
     opened: state.popup.open,
-    channel: state.channels.byId[state.popup.data],
+    initialValues: { name: channel.name },
   };
 };
 
