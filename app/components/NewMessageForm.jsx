@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, type FormProps } from 'redux-form';
-import { Form, FormGroup, Button, Input } from 'reactstrap';
+import { Form, FormGroup, Button, Input, FormFeedback } from 'reactstrap';
 import { addMessage } from '../actions';
+import { required } from '../validation';
 import type { State } from '../types';
 
 export type Props = {|
@@ -19,14 +20,20 @@ const mapStateToProps = (state: State): Props => ({
   initialValues: { text: state.channels.texts[state.channels.currentId] },
 });
 
-const renderTextarea = ({ input }): React.Element<any> => (
-  <Input
-    {...input}
-    type="textarea"
-    rows="3"
-    placeholder="Input message"
-  />
+const renderMessageField = ({ input, meta: { touched, error } }): React.Element<any> => (
+  <FormGroup>
+    <Input
+      {...input}
+      invalid={touched && !!error}
+      type="textarea"
+      rows="3"
+      placeholder="Input message"
+    />
+    <FormFeedback>{error}</FormFeedback>
+  </FormGroup>
 );
+
+const validateMessage = required('Message');
 
 class NewMessageForm extends React.Component<Props> {
   onSubmit = async ({ text }) => {
@@ -40,13 +47,12 @@ class NewMessageForm extends React.Component<Props> {
   render() {
     return (
       <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <FormGroup>
-          <Field
-            name="text"
-            component={renderTextarea}
-            disabled={this.props.submitting}
-          />
-        </FormGroup>
+        <Field
+          name="text"
+          component={renderMessageField}
+          disabled={this.props.submitting}
+          validate={validateMessage}
+        />
         <Button
           disabled={this.props.submitting}
           type="submit"
