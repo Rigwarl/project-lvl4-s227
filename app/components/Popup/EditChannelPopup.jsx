@@ -77,4 +77,5 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
 
 export default connect(mapStateToProps, dispatchProps)(reduxForm({
   form: 'editChannel',
+  enableReinitialize: true,
 })(NewChannelPopup));
