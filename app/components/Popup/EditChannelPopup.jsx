@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Button, Input } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Form, Button, Input, FormGroup, FormFeedback } from 'reactstrap';
 import { Field, reduxForm, type FormProps } from 'redux-form';
 import { freeChannel, editChannel } from '../../actions';
+import { required } from '../../validation';
 import type { State, Channel } from '../../types';
 
 type Props = {|
@@ -37,7 +38,18 @@ const dispatchProps: DispatchProps = {
   freeChannel,
 };
 
-const renderInput = ({ input }): React.Element<any> => <Input {...input} placeholder="channel name" />;
+const renderNameFiled = ({ input, meta: { touched, error } }): React.Element<any> => (
+  <FormGroup>
+    <Input
+      {...input}
+      placeholder="channel name"
+      invalid={touched && !!error}
+    />
+    <FormFeedback>{error}</FormFeedback>
+  </FormGroup>
+);
+
+const validateName = required('Channel name');
 
 class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps> {
   onSubmit = ({ name }) => this.props.editChannel({ ...this.props.channel, name }, this.props.reset)
@@ -52,7 +64,11 @@ class NewChannelPopup extends React.Component<Props & DispatchProps & FormProps>
         </ModalHeader>
         <ModalBody>
           <Form id="channel-edit-form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-            <Field name="name" component={renderInput} />
+            <Field
+              name="name"
+              component={renderNameFiled}
+              validate={validateName}
+            />
           </Form>
         </ModalBody>
         <ModalFooter>
