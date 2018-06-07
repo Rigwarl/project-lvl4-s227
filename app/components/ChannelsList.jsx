@@ -14,7 +14,7 @@ type Props = {|
 |};
 
 type DispatchProps = {
-  changeCurrentChannel: typeof actions.changeCurrentChannel,
+  changeChannel: typeof actions.changeChannel,
   setChannelsList: typeof actions.setChannelsList,
   openPopup: typeof actions.openPopup,
   holdChannel: typeof actions.holdChannel,
@@ -78,14 +78,14 @@ const renderButtons = (status, setChannelsList, openPopup) => (
 
 const ChannelsList = ({
   status, channels, currentChannelId,
-  changeCurrentChannel, setChannelsList, openPopup, holdChannel,
+  changeChannel, setChannelsList, openPopup, holdChannel,
 }: Props & DispatchProps) => (
   <div>
     <ListGroup>
       {channels.map(channel =>
         renderChannelListItem(
           channel, currentChannelId, status,
-          changeCurrentChannel, holdChannel,
+          changeChannel, holdChannel,
         ))}
     </ListGroup>
     {renderButtons(status, setChannelsList, openPopup)}

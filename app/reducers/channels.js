@@ -81,9 +81,9 @@ const currentId = handleActions({
     state: number,
     action: ActionType<typeof actions.changeCurrentChannel>,
   ): number {
-    const { payload } = action;
+    const { payload: { id } } = action;
 
-    return payload;
+    return id;
   },
 
   [actions.removeChannelEvent.toString()](
@@ -105,8 +105,24 @@ const listStatus = handleActions({
   },
 }, 'default');
 
+type Texts = {
+  [id: string]: string,
+};
+
+const texts = handleActions({
+  [actions.changeCurrentChannel.toString()](
+    state: Texts,
+    action: ActionType<typeof actions.changeCurrentChannel>,
+  ): Texts {
+    const { payload } = action;
+
+    return { ...state, [payload.currentId]: payload.currentText };
+  },
+}, {});
+
 export default combineReducers({
   byId,
+  texts,
   visible,
   currentId,
   listStatus,

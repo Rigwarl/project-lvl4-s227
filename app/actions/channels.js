@@ -2,6 +2,7 @@
 
 import type { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
+import { formValueSelector, reset } from 'redux-form';
 import { request } from '../server';
 import { openPopup, closePopup } from '.';
 import type { Channel, ChannelsListStatus, PopupName } from '../types';
@@ -9,7 +10,17 @@ import type { Channel, ChannelsListStatus, PopupName } from '../types';
 const ERROR_CHANNEL_HOLD_ID = 1;
 
 export const setChannelsList = createAction('CHANNELS_LIST_SET', (status: ChannelsListStatus) => status);
-export const changeCurrentChannel = createAction('CHANNEL_CURRENT_CHANGE', (id: number) => id);
+export const changeCurrentChannel = createAction('CHANNEL_CURRENT_CHANGE', (payload: { id: number, currentId: number, currentText: string }) => payload);
+
+export const changeChannel = (id: number) => (dispatch, getStore) => {
+  const store = getStore();
+  const selector = formValueSelector('newMessage');
+  const currentText = selector(store, 'text');
+  const { currentId } = store.channels;
+
+  dispatch(changeCurrentChannel({ id, currentId, currentText }));
+  dispatch(reset('newMessage'));
+};
 
 export const addChannelEvent = createAction('CHANNEL_ADD_EVENT', (channel: Channel) => channel);
 export const editChannelEvent = createAction('CHANNEL_EDIT_EVENT', (channel: Channel) => channel);
