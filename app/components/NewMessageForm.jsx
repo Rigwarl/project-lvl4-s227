@@ -47,6 +47,7 @@ class NewMessageForm extends React.Component<Props> {
     const textError = required('Message')(text);
 
     if (textError) {
+      this.messageInputRef.focus();
       throw new SubmissionError({ text: textError });
     }
 
@@ -54,7 +55,8 @@ class NewMessageForm extends React.Component<Props> {
     const message = { text, userName, channelId };
 
     await this.props.addMessage(message);
-    this.props.reset();
+    this.props.initialize();
+    this.messageInputRef.focus();
   }
 
   render() {
