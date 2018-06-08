@@ -80,7 +80,8 @@ const ChannelsList = ({
   status, channels, currentChannelId,
   changeChannel, setChannelsList, openPopup, holdChannel,
 }: Props & DispatchProps) => (
-  <div>
+  <div className="pt-3">
+    <h1 className="h3 mb-2">Slack Killer</h1>
     <ListGroup>
       {channels.map(channel =>
         renderChannelListItem(

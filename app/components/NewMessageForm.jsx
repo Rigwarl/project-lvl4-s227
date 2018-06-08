@@ -19,7 +19,7 @@ const mapStateToProps = (state: State): Props => ({
 });
 
 const renderMessageField = ({ input, inputRef, meta: { touched, error } }): React.Element<any> => (
-  <FormGroup>
+  <FormGroup className="position-relative">
     <Input
       {...input}
       innerRef={inputRef}
@@ -28,7 +28,7 @@ const renderMessageField = ({ input, inputRef, meta: { touched, error } }): Reac
       placeholder="Input message"
       rows="3"
     />
-    <FormFeedback>{error}</FormFeedback>
+    <FormFeedback className="position-absolute text-right">{error}</FormFeedback>
   </FormGroup>
 );
 

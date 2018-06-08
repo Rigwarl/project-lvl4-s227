@@ -3,21 +3,18 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import ChannelsList from './ChannelsList';
-import MessagesList from './MessagesList';
-import NewMessageForm from './NewMessageForm';
+import Channel from './Channel';
 import Popup from './Popup';
 
 const App = () => (
   <div>
-    <Container className="pt-3">
+    <Container>
       <Row>
-        <Col sm="3" className="mb-4">
-          <h1 className="h3 mb-2">Slack Killer</h1>
+        <Col sm="3">
           <ChannelsList />
         </Col>
-        <Col sm="9" className="mb-4">
-          <MessagesList />
-          <NewMessageForm />
+        <Col sm="9">
+          <Channel />
         </Col>
       </Row>
     </Container>

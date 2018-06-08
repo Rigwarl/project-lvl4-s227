@@ -8,12 +8,10 @@ import type { State, Message } from '../types';
 
 type Props = {|
   messages: Message[],
-  channelName: string,
 |};
 
 const mapStateToProps = (state: State): Props => ({
   messages: messagesSelector(state),
-  channelName: state.channels.byId[state.channels.currentId].name,
 });
 
 const renderMessageListItem = ({ id, text, userName }) => (
@@ -25,12 +23,8 @@ const renderMessageListItem = ({ id, text, userName }) => (
   </Card>
 );
 
-const MessagesList = ({ channelName, messages }: Props) => (
-  <div>
-    <h2 className="h3 mb-2">
-      <span className="font-weight-normal text-muted">#</span>
-      {channelName}
-    </h2>
+const MessagesList = ({ messages }: Props) => (
+  <div className="messages-list">
     {messages.map(renderMessageListItem)}
   </div>
 );
