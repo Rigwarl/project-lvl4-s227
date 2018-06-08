@@ -11,7 +11,7 @@ export type Channel = {|
 |};
 
 export type ChannelsMap = {
-  +[string]: Channel,
+  +[number]: Channel,
 };
 
 export type NewMessage = {|
@@ -28,7 +28,7 @@ export type Message = {|
 |};
 
 export type MessagesMap = {
-  +[string]: Message,
+  +[number]: Message,
 };
 
 export type InitData = {|

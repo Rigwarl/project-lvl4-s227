@@ -1,6 +1,6 @@
 // @flow
 
-import type { Dispatch } from 'redux';
+import type { Dispatch, GetStore } from 'redux';
 import { createAction } from 'redux-actions';
 import { formValueSelector, initialize } from 'redux-form';
 import { request } from '../server';
@@ -12,7 +12,7 @@ const ERROR_CHANNEL_HOLD_ID = 1;
 export const setChannelsList = createAction('CHANNELS_LIST_SET', (status: ChannelsListStatus) => status);
 export const changeCurrentChannel = createAction('CHANNEL_CURRENT_CHANGE', (payload: { id: number, currentId: number, currentText: string }) => payload);
 
-export const changeChannel = (id: number) => (dispatch, getStore) => {
+export const changeChannel = (id: number) => (dispatch: Dispatch, getStore: GetStore) => {
   const store = getStore();
   const selector = formValueSelector('newMessage');
   const currentText = selector(store, 'text');
@@ -20,7 +20,7 @@ export const changeChannel = (id: number) => (dispatch, getStore) => {
   const text = texts[id];
 
   dispatch(changeCurrentChannel({ id, currentId, currentText }));
-  dispatch(initialize('newMessage', { text }));
+  dispatch(initialize('newMessage', { text }, false, {}));
 };
 
 export const addChannelEvent = createAction('CHANNEL_ADD_EVENT', (channel: Channel) => channel);

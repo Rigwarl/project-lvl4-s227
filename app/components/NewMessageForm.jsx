@@ -59,6 +59,8 @@ class NewMessageForm extends React.Component<Props> {
     this.messageInputRef.focus();
   }
 
+  messageInputRef: HTMLTextAreaElement
+
   render() {
     return (
       <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
