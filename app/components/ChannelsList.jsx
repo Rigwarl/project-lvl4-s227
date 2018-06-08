@@ -35,7 +35,7 @@ const renderChannelListItem = (
   <ListGroupItem
     key={id}
     active={status === 'default' && id === currentChannelId}
-    onClick={() => status === 'default' && changeCurrentChannel(id)}
+    onClick={() => status === 'default' && id !== currentChannelId && changeCurrentChannel(id)}
     action={status === 'default'}
     className="d-flex"
   >
