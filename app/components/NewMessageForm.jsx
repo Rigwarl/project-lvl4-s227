@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, SubmissionError, type FormProps } from 'redux-form';
 import { Form, FormGroup, Button, Input, FormFeedback } from 'reactstrap';
+import HotKeys from 'react-hot-keys';
 import { addMessage } from '../actions';
 import { required } from '../validation';
 import type { State } from '../types';
@@ -62,21 +63,25 @@ class NewMessageForm extends React.Component<Props> {
   messageInputRef: HTMLTextAreaElement
 
   render() {
+    const submit = this.props.handleSubmit(this.onSubmit);
+
     return (
-      <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field
-          name="text"
-          component={renderMessageField}
-          inputRef={(input) => { this.messageInputRef = input; }}
-          disabled={this.props.submitting}
-        />
-        <Button
-          disabled={this.props.submitting}
-          type="submit"
-          color="primary"
-        >Send
-        </Button>
-      </Form>
+      <HotKeys keyName="ctrl+Enter, cmd+Enter" onKeyUp={submit}>
+        <Form onSubmit={submit}>
+          <Field
+            name="text"
+            component={renderMessageField}
+            inputRef={(input) => { this.messageInputRef = input; }}
+            disabled={this.props.submitting}
+          />
+          <Button
+            disabled={this.props.submitting}
+            type="submit"
+            color="primary"
+          >Send
+          </Button>
+        </Form>
+      </HotKeys>
     );
   }
 }
