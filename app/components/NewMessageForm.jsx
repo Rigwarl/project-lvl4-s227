@@ -20,20 +20,31 @@ const mapStateToProps = (state: State): Props => ({
   initialValues: { text: state.channels.texts[state.channels.currentId] },
 });
 
-const renderMessageField = ({ input, meta: { touched, error } }): React.Element<any> => (
+const renderMessageField = ({ input, inputRef, meta: { touched, error } }): React.Element<any> => (
   <FormGroup>
     <Input
       {...input}
+      innerRef={inputRef}
       invalid={touched && !!error}
       type="textarea"
-      rows="3"
       placeholder="Input message"
+      rows="3"
     />
     <FormFeedback>{error}</FormFeedback>
   </FormGroup>
 );
 
 class NewMessageForm extends React.Component<Props> {
+  componentDidMount() {
+    this.messageInputRef.focus();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.channelId !== prevProps.channelId) {
+      this.messageInputRef.focus();
+    }
+  }
+
   onSubmit = async ({ text }) => {
     const textError = required('Message')(text);
 
@@ -54,6 +65,7 @@ class NewMessageForm extends React.Component<Props> {
         <Field
           name="text"
           component={renderMessageField}
+          inputRef={(input) => { this.messageInputRef = input; }}
           disabled={this.props.submitting}
         />
         <Button
