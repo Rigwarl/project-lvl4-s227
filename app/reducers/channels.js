@@ -116,7 +116,10 @@ const texts = handleActions({
   ): Texts {
     const { payload } = action;
 
-    return { ...state, [payload.currentId]: payload.currentText };
+    return {
+      ..._.omit(state, payload.id),
+      [payload.currentId]: payload.currentText,
+    };
   },
 }, {});
 

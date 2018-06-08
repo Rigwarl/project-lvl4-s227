@@ -11,13 +11,11 @@ import type { State } from '../types';
 export type Props = {|
   userName: string,
   channelId: number,
-  initialValues: { text: string },
 |} & FormProps;
 
 const mapStateToProps = (state: State): Props => ({
   userName: state.user.name,
   channelId: state.channels.currentId,
-  initialValues: { text: state.channels.texts[state.channels.currentId] },
 });
 
 const renderMessageField = ({ input, inputRef, meta: { touched, error } }): React.Element<any> => (
@@ -81,7 +79,6 @@ class NewMessageForm extends React.Component<Props> {
 
 const ReduxForm = reduxForm({
   form: 'newMessage',
-  enableReinitialize: true,
 })(NewMessageForm);
 
 export default connect(mapStateToProps, { addMessage })(ReduxForm);
