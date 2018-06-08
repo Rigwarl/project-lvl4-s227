@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm, type FormProps } from 'redux-form';
+import { Field, reduxForm, SubmissionError, type FormProps } from 'redux-form';
 import { Form, FormGroup, Button, Input, FormFeedback } from 'reactstrap';
 import { addMessage } from '../actions';
 import { required } from '../validation';
@@ -33,10 +33,14 @@ const renderMessageField = ({ input, meta: { touched, error } }): React.Element<
   </FormGroup>
 );
 
-const validateMessage = required('Message');
-
 class NewMessageForm extends React.Component<Props> {
   onSubmit = async ({ text }) => {
+    const textError = required('Message')(text);
+
+    if (textError) {
+      throw new SubmissionError({ text: textError });
+    }
+
     const { userName, channelId } = this.props;
     const message = { text, userName, channelId };
 
@@ -51,7 +55,6 @@ class NewMessageForm extends React.Component<Props> {
           name="text"
           component={renderMessageField}
           disabled={this.props.submitting}
-          validate={validateMessage}
         />
         <Button
           disabled={this.props.submitting}
