@@ -98,15 +98,15 @@ const ChannelsList = ({
   status, channels, currentChannelId,
   changeChannel, setChannelsList, openPopup, holdChannel,
 }: Props & DispatchProps) => {
-  const cancelStatus = () => status === 'editing' && setChannelsList('default');
+  const cancelEditing = () => status === 'editing' && setChannelsList('default');
 
   return (
     <HotKeys
       keyMap={{
         setCurrentChannel: 'enter',
-        cancelStatus: 'esc',
+        cancelEditing: 'esc',
       }}
-      handlers={{ cancelStatus }}
+      handlers={{ cancelEditing }}
       focused
       attach={window}
     >
