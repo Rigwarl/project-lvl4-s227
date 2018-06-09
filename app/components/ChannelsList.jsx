@@ -34,12 +34,13 @@ const renderChannelListItem = (
   changeCurrentChannel, holdChannel,
 ) => {
   const active = status === 'default' && id === currentChannelId;
-  const interactive = status === 'default' && id !== currentChannelId;
-  const tabIndex = interactive ? 0 : -1;
+  const canActivate = status === 'default' && id !== currentChannelId;
+  const tabIndex = canActivate ? 0 : -1;
 
-  const setCurrentChannel = () => interactive && changeCurrentChannel(id);
   const removeChannel = () => holdChannel(id, 'removeChannel');
   const editChannel = () => holdChannel(id, 'editChannel');
+  const setCurrentChannel = () => canActivate && changeCurrentChannel(id);
+  const handlers = canActivate ? { setCurrentChannel } : {};
 
   return (
     <ListGroupItem
@@ -50,7 +51,7 @@ const renderChannelListItem = (
       className="p-0"
     >
       <HotKeys
-        handlers={{ hit: setCurrentChannel }}
+        handlers={handlers}
         tabIndex={tabIndex}
         className="d-flex px-3 py-2"
       >
@@ -97,7 +98,7 @@ const ChannelsList = ({
   status, channels, currentChannelId,
   changeChannel, setChannelsList, openPopup, holdChannel,
 }: Props & DispatchProps) => (
-  <HotKeys keyMap={{ hit: 'enter' }}>
+  <HotKeys keyMap={{ setCurrentChannel: 'enter' }}>
     <div className="pt-3">
       <h1 className="h3 mb-2">Slack Killer</h1>
       <ListGroup>
@@ -111,5 +112,4 @@ const ChannelsList = ({
     </div>
   </HotKeys>
 );
-
 export default connect(mapStateToProps, dispatchToProps)(ChannelsList);
