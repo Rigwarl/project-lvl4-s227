@@ -97,19 +97,31 @@ const renderButtons = (status, setChannelsList, openPopup) => (
 const ChannelsList = ({
   status, channels, currentChannelId,
   changeChannel, setChannelsList, openPopup, holdChannel,
-}: Props & DispatchProps) => (
-  <HotKeys keyMap={{ setCurrentChannel: 'enter' }}>
-    <div className="pt-3">
-      <h1 className="h3 mb-2">Slack Killer</h1>
-      <ListGroup>
-        {channels.map(channel =>
-          renderChannelListItem(
-            channel, currentChannelId, status,
-            changeChannel, holdChannel,
-          ))}
-      </ListGroup>
-      {renderButtons(status, setChannelsList, openPopup)}
-    </div>
-  </HotKeys>
-);
+}: Props & DispatchProps) => {
+  const cancelStatus = () => status === 'editing' && setChannelsList('default');
+
+  return (
+    <HotKeys
+      keyMap={{
+        setCurrentChannel: 'enter',
+        cancelStatus: 'esc',
+      }}
+      handlers={{ cancelStatus }}
+      focused
+      attach={window}
+    >
+      <div className="pt-3">
+        <h1 className="h3 mb-2">Slack Killer</h1>
+        <ListGroup>
+          {channels.map(channel =>
+            renderChannelListItem(
+              channel, currentChannelId, status,
+              changeChannel, holdChannel,
+            ))}
+        </ListGroup>
+        {renderButtons(status, setChannelsList, openPopup)}
+      </div>
+    </HotKeys>
+  );
+};
 export default connect(mapStateToProps, dispatchToProps)(ChannelsList);
