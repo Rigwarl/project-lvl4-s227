@@ -36,10 +36,9 @@ export const holdChannel = (id: number, popup: PopupName) => async (dispatch: Di
   } catch (e) {
     if (e.id === ERROR_CHANNEL_HOLD_ID) {
       dispatch(openPopup('blockedChannel', id));
+      dispatch(setChannelsList('editing'));
     }
   }
-
-  dispatch(setChannelsList('editing'));
 };
 
 export const freeChannel = (id: number) => async (dispatch: Dispatch) => {
