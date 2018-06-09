@@ -56,6 +56,7 @@ class MessagesList extends React.Component<Props> {
 
     return (
       <div
+        tabIndex="0" // eslint-disable-line
         className={className}
         ref={(list) => { this.listInputRef = list; }}
       >
