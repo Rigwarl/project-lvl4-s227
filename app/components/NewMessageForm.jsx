@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, SubmissionError, type FormProps } from 'redux-form';
 import { Form, FormGroup, Button, Input, FormFeedback } from 'reactstrap';
-import HotKeys from 'react-hot-keys';
+import { HotKeys } from 'react-hotkeys';
 import { addMessage } from '../actions';
 import { required } from '../validation';
 import type { State } from '../types';
@@ -66,7 +66,10 @@ class NewMessageForm extends React.Component<Props> {
     const submit = this.props.handleSubmit(this.onSubmit);
 
     return (
-      <HotKeys keyName="ctrl+Enter, cmd+Enter" onKeyUp={submit}>
+      <HotKeys
+        keyMap={{ submit: ['ctrl+enter', 'command+enter'] }}
+        handlers={{ submit }}
+      >
         <Form onSubmit={submit}>
           <Field
             name="text"

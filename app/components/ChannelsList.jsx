@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { HotKeys } from 'react-hotkeys';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { channelsSelector } from '../selectors';
 import * as actions from '../actions';
@@ -31,35 +32,51 @@ const dispatchToProps: DispatchProps = actions;
 const renderChannelListItem = (
   { id, name, removable }, currentChannelId, status,
   changeCurrentChannel, holdChannel,
-) => (
-  <ListGroupItem
-    key={id}
-    active={status === 'default' && id === currentChannelId}
-    onClick={() => status === 'default' && id !== currentChannelId && changeCurrentChannel(id)}
-    action={status === 'default'}
-    className="d-flex"
-  >
-    <span className="mr-auto">{name}</span>
-    {status !== 'default' && removable &&
-      <React.Fragment>
-        <Button
-          disabled={status === 'disabled'}
-          color="link"
-          onClick={() => holdChannel(id, 'editChannel')}
-          className="pt-0 pb-0 border-0"
-        >edit
-        </Button>
-        <Button
-          disabled={status === 'disabled'}
-          color="link"
-          onClick={() => holdChannel(id, 'removeChannel')}
-          className="pt-0 pb-0 border-0"
-        >remove
-        </Button>
-      </React.Fragment>
-    }
-  </ListGroupItem>
-);
+) => {
+  const active = status === 'default' && id === currentChannelId;
+  const interactive = status === 'default' && id !== currentChannelId;
+  const tabIndex = interactive ? 0 : -1;
+
+  const setCurrentChannel = () => interactive && changeCurrentChannel(id);
+  const removeChannel = () => holdChannel(id, 'removeChannel');
+  const editChannel = () => holdChannel(id, 'editChannel');
+
+  return (
+    <ListGroupItem
+      key={id}
+      active={active}
+      onClick={setCurrentChannel}
+      action={status === 'default'}
+      className="p-0"
+    >
+      <HotKeys
+        handlers={{ hit: setCurrentChannel }}
+        tabIndex={tabIndex}
+        className="d-flex px-3 py-2"
+      >
+        <span className="mr-auto">{name}</span>
+        {status !== 'default' && removable &&
+          <React.Fragment>
+            <Button
+              disabled={status === 'disabled'}
+              color="link"
+              onClick={editChannel}
+              className="pt-0 pb-0 border-0"
+            >edit
+            </Button>
+            <Button
+              disabled={status === 'disabled'}
+              color="link"
+              onClick={removeChannel}
+              className="pt-0 pb-0 border-0"
+            >remove
+            </Button>
+          </React.Fragment>
+        }
+      </HotKeys>
+    </ListGroupItem>
+  );
+};
 
 const renderButtons = (status, setChannelsList, openPopup) => (
   status !== 'default' ?
@@ -80,17 +97,19 @@ const ChannelsList = ({
   status, channels, currentChannelId,
   changeChannel, setChannelsList, openPopup, holdChannel,
 }: Props & DispatchProps) => (
-  <div className="pt-3">
-    <h1 className="h3 mb-2">Slack Killer</h1>
-    <ListGroup>
-      {channels.map(channel =>
-        renderChannelListItem(
-          channel, currentChannelId, status,
-          changeChannel, holdChannel,
-        ))}
-    </ListGroup>
-    {renderButtons(status, setChannelsList, openPopup)}
-  </div>
+  <HotKeys keyMap={{ hit: 'enter' }}>
+    <div className="pt-3">
+      <h1 className="h3 mb-2">Slack Killer</h1>
+      <ListGroup>
+        {channels.map(channel =>
+          renderChannelListItem(
+            channel, currentChannelId, status,
+            changeChannel, holdChannel,
+          ))}
+      </ListGroup>
+      {renderButtons(status, setChannelsList, openPopup)}
+    </div>
+  </HotKeys>
 );
 
 export default connect(mapStateToProps, dispatchToProps)(ChannelsList);
